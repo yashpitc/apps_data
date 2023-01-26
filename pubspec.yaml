@@ -1,0 +1,41 @@
+name: AppsData
+description: A new Flutter project.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=2.19.0-47.0.dev <3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.2
+  get: ^4.6.5
+  flutter_svg: ^1.1.6
+  get_storage: ^2.0.3
+  firebase_core: ^2.4.1
+  cloud_firestore: ^4.3.1
+  firebase_crashlytics: ^3.0.11
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^2.0.0
+
+flutter:
+
+  uses-material-design: true
+  assets:
+    - assets/
+    - assets/images/
+    - assets/icons/
+    - assets/svg/
+
+  fonts:
+     - family: NotoSans
+       fonts:
+         - asset: fonts/NotoSans-Bold.ttf
+
