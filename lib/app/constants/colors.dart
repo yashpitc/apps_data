@@ -11,6 +11,8 @@ class AppColors {
   static Color cardBgColor = const Color(0xFFFBFBFB);
   static Color cardBg2Color = const Color(0xFFFFFFFF);
   static Color cardBg3Color = const Color(0xFFFFFFFFCC);
-
-  // #FFFFFFCC
+  static Color pinkColor = const Color(0xFFF89999);
+  static Color blueColor = const Color(0xFF5370E5);
+  static Color timeColor = const Color(0x7A000000);
+  static Color completeBGColor = const Color(0xFF9886C3);
 }

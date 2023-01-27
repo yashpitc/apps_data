@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="310.99" height="309.952" viewBox="0 0 310.99 309.952">
+  <defs>
+    <filter id="YAY_" x="12.333" y="192.519" width="51" height="66" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-opacity="0.078" result="color"/>
+      <feComposite operator="out" in="SourceGraphic" in2="blur"/>
+      <feComposite operator="in" in="color"/>
+      <feComposite operator="in" in2="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Group_140" data-name="Group 140" transform="translate(-59.505 -209.774)">
+    <g id="Group_135" data-name="Group 135" transform="translate(59.505 209.774)">
+      <g id="Group_132" data-name="Group 132" transform="translate(177.356 0)">
+        <ellipse id="Ellipse_18" data-name="Ellipse 18" cx="4.736" cy="15.087" rx="4.736" ry="15.087" transform="translate(47.87 256.322) rotate(-60.038)" fill="#807f84"/>
+        <ellipse id="Ellipse_19" data-name="Ellipse 19" cx="30.174" cy="30.174" rx="30.174" ry="30.174" transform="translate(67.331 239.054)" fill="#807f84"/>
+        <rect id="Rectangle_12" data-name="Rectangle 12" width="9.167" height="16.424" transform="translate(102.088 292.91)" fill="#807f84"/>
+        <rect id="Rectangle_13" data-name="Rectangle 13" width="9.167" height="16.424" transform="translate(83.754 292.91)" fill="#807f84"/>
+        <ellipse id="Ellipse_20" data-name="Ellipse 20" cx="10.313" cy="10.313" rx="10.313" ry="10.313" transform="translate(80.122 251.277)" fill="#fff"/>
+        <ellipse id="Ellipse_21" data-name="Ellipse 21" cx="3.447" cy="3.423" rx="3.447" ry="3.423" transform="translate(80.67 260.201) rotate(-44.974)" fill="#3f3d56"/>
+        <path id="Path_73" data-name="Path 73" d="M773.9,494.327c-12.044-2.689-20.025-6.714-17.589-17.625s14.175-17.577,26.219-14.887,19.832,13.715,17.4,24.626S785.939,497.016,773.9,494.327Z" transform="translate(-673.146 -245.273)" fill="#6c63ff"/>
+        <ellipse id="Ellipse_22" data-name="Ellipse 22" cx="4.736" cy="15.087" rx="4.736" ry="15.087" transform="matrix(0.966, -0.257, 0.257, 0.966, 116.733, 264.285)" fill="#807f84"/>
+        <path id="Path_74" data-name="Path 74" d="M762.624,549.332c-5.54,0-10.734-3.526-10.734-.573s5.194,11.268,10.734,11.268,10.532-5.832,10.532-8.785S768.164,549.332,762.624,549.332Z" transform="translate(-671.955 -271.128)" fill="#fff"/>
+        <path id="Path_89" data-name="Path 89" d="M693.143,293.125h-10.5a3.153,3.153,0,0,1-3.075-3.849l1.944-8.58c-24.948-4.056-43.715-31.308-43.715-63.588,0-35.349,22.472-64.107,50.095-64.107s50.095,28.758,50.095,64.107c0,32.28-18.767,59.532-43.715,63.588l1.944,8.58a3.153,3.153,0,0,1-3.075,3.849Z" transform="translate(-637.799 -153)" fill="#ff6584"/>
+        <path id="Path_91" data-name="Path 91" d="M688.73,334.416a17.358,17.358,0,0,0-14.958,3.213,17.048,17.048,0,0,0-6.211,13.953c.513,11.447,12.037,17.6,20.071,23.757,9.493,7.275,18.4,15.669,24.837,25.833,6.37,10.064,10.365,21.991,9.44,34-.8,10.389-5.509,20.689-13.583,27.412a32.148,32.148,0,0,1-3.2,2.33c-1.134.729-.082,2.549,1.061,1.815,8.847-5.686,14.7-15.166,16.915-25.35,2.466-11.331.269-23.126-4.578-33.528-5.035-10.806-12.955-19.992-21.854-27.813-4.414-3.88-9.1-7.4-13.852-10.856-4.176-3.038-8.553-6.309-11.148-10.883a15.16,15.16,0,0,1-.159-14.758,14.862,14.862,0,0,1,12.864-7.565,14.628,14.628,0,0,1,3.8.464,1.052,1.052,0,0,0,.559-2.027Z" transform="translate(-646.704 -207.156)" fill="#807f84"/>
+        <path id="Path_92" data-name="Path 92" d="M660.652,251.726a4.56,4.56,0,0,1-4.554-4.5,52.026,52.026,0,0,1,0-33.746,4.554,4.554,0,0,1,9.108.058l-.021.121a48.158,48.158,0,0,0,0,33.393l.02.116A4.559,4.559,0,0,1,660.652,251.726Z" transform="translate(-642.435 -169.753)" fill="#fff"/>
+      </g>
+      <rect id="Rectangle_20" data-name="Rectangle 20" width="6.4" height="20.267" transform="translate(175.17 8.533)" fill="#949494"/>
+      <rect id="Rectangle_21" data-name="Rectangle 21" width="6.4" height="20.267" transform="translate(149.46 74.595) rotate(-38.519)" fill="#949494"/>
+      <rect id="Rectangle_22" data-name="Rectangle 22" width="20.267" height="6.4" transform="translate(88.57 103.22) rotate(-60)" fill="#949494"/>
+      <rect id="Rectangle_23" data-name="Rectangle 23" width="6.4" height="20.267" transform="translate(0 0)" fill="#949494"/>
+      <rect id="Rectangle_24" data-name="Rectangle 24" width="6.4" height="20.267" transform="translate(101.046 0)" fill="#949494"/>
+      <rect id="Rectangle_25" data-name="Rectangle 25" width="6.4" height="20.267" transform="translate(29.143 41.953) rotate(-38.519)" fill="#949494"/>
+      <rect id="Rectangle_26" data-name="Rectangle 26" width="20.267" height="6.4" transform="translate(3.2 149.571) rotate(-60)" fill="#949494"/>
+      <rect id="Rectangle_27" data-name="Rectangle 27" width="6.4" height="20.267" transform="translate(128.039 156.757) rotate(-38.519)" fill="#949494"/>
+      <rect id="Rectangle_28" data-name="Rectangle 28" width="20.267" height="6.4" transform="translate(258.829 32.485) rotate(-60)" fill="#949494"/>
+      <rect id="Rectangle_29" data-name="Rectangle 29" width="6.4" height="20.267" transform="translate(262.119 166.678) rotate(-38.519)" fill="#949494"/>
+      <rect id="Rectangle_30" data-name="Rectangle 30" width="6.4" height="20.267" transform="translate(52.106 150.4)" fill="#949494"/>
+      <rect id="Rectangle_31" data-name="Rectangle 31" width="6.4" height="20.267" transform="translate(202.421 197.924) rotate(14)" fill="#949494"/>
+    </g>
+    <g data-type="innerShadowGroup">
+      <text id="YAY_2" data-name="YAY!
+" transform="translate(71.838 428.293)" font-size="24" font-family="NotoSans-Bold, Noto Sans" font-weight="700"><tspan x="0" y="0">YAY!</tspan><tspan x="0" y="33"></tspan></text>
+      <g transform="matrix(1, 0, 0, 1, 59.51, 209.77)" filter="url(#YAY_)">
+        <text id="YAY_3" data-name="YAY!
+" transform="translate(12.33 218.52)" fill="#fff" font-size="24" font-family="NotoSans-Bold, Noto Sans" font-weight="700"><tspan x="0" y="0">YAY!</tspan><tspan x="0" y="33"></tspan></text>
+      </g>
+    </g>
+    <text id="You_completed_the_challenge." data-name="You completed 
+the challenge." transform="translate(71.838 462.293)" fill="#ffbb39" font-size="24" font-family="NotoSans-Bold, Noto Sans" font-weight="700"><tspan x="0" y="0">You completed </tspan><tspan x="0" y="33">the challenge.</tspan></text>
+    <line id="Line_6" data-name="Line 6" x2="286.933" transform="translate(64.305 519.226)" fill="none" stroke="#707070" stroke-width="1" opacity="0.24"/>
+  </g>
+</svg>

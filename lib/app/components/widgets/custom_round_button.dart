@@ -13,6 +13,7 @@ class CustomRoundButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
+      borderRadius: BorderRadius.circular(100),
       child: Container(
         height:65,
         width: 65,

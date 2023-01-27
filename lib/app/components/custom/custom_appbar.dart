@@ -8,14 +8,18 @@ import 'package:get/get.dart';
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   CustomAppBar(
       {Key? key,
-      required this.firstTitle,
-      required this.secondTitle,
-      required this.notiButton,
-      required this.backbutton,
-      this.notiOnTap});
+        required this.firstTitle,
+        required this.secondTitle,
+        required this.firstTitleColor,
+        required this.secondTitleColor,
+        required this.notiButton,
+        required this.backbutton,
+        this.notiOnTap});
 
   String? firstTitle;
   String? secondTitle;
+  Color? firstTitleColor;
+  Color? secondTitleColor;
   bool? backbutton;
   bool? notiButton;
   List<Widget>? actions;
@@ -24,33 +28,38 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      automaticallyImplyLeading: false,
       leading: backbutton!
           ? IconButton(
-              icon: Icon(
-                Icons.chevron_left,
-                color: Colors.black,
-                size: 30,
-              ),
-              onPressed: () {
-                Get.back();
-              },
-            )
+        icon: Icon(
+          Icons.chevron_left,
+          color: Colors.black,
+          size: 30,
+        ),
+        onPressed: () {
+          Get.back();
+        },
+      )
           : null,
-      leadingWidth: 0.0,
-      title:  buildTextTitle(firstTitle!, secondTitle!),
+      leadingWidth: backbutton!? 20.0 : 15.0,
+      title:  buildTextTitle(firstTitle!, secondTitle!,firstTitleColor!,secondTitleColor!),
       backgroundColor: AppColors.dashboardBGColor,
       elevation: 0.0,
       actions:[
         notiButton!
             ? IconButton(
-                onPressed: notiOnTap,
-                icon: SvgPicture.asset(AppIcons.bellIconSvg))
+            onPressed: notiOnTap,
+            icon: SvgPicture.asset(AppIcons.bellIconSvg))
             : const SizedBox()
       ],
     );
   }
 
-  buildTextTitle(String firstTitle, String secondTitle) {
+  buildTextTitle(
+      String firstTitle,
+      String secondTitle,
+      Color firstTitleColor,
+      Color secondTitleColor) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
@@ -61,12 +70,16 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           decoration: BoxDecoration(
             border: Border(
               bottom: BorderSide(
-                color: AppColors.firstTitleColor,
+                color: firstTitleColor,
                 width: 1.8,
               ),
             ),
           ),
-          child: Text(firstTitle, style: CustomTextStyle.appbarFirstTitleStyle),
+          child: Text(firstTitle, style: TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.w600,
+            color: firstTitleColor,
+          )),
         ),
         Container(
           padding: const EdgeInsets.only(
@@ -75,13 +88,17 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           decoration: BoxDecoration(
             border: Border(
               bottom: BorderSide(
-                color: AppColors.whiteColor,
+                color: secondTitleColor,
                 width: 1.8,
               ),
             ),
           ),
           child:
-              Text(secondTitle, style: CustomTextStyle.appbarSecondTitleStyle),
+          Text(secondTitle, style:TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.w600,
+            color: secondTitleColor,
+          )),
         ),
       ],
     );

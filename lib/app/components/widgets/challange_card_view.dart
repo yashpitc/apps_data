@@ -1,8 +1,8 @@
 import 'package:AppsData/app/constants/colors.dart';
 import 'package:flutter/material.dart';
 
-class ChallangeCardView extends StatelessWidget {
-  const ChallangeCardView({Key? key}) : super(key: key);
+class ChallengeCardView extends StatelessWidget {
+  const ChallengeCardView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -11,14 +11,14 @@ class ChallangeCardView extends StatelessWidget {
 
   simpleCardView(BuildContext context) {
     return Container(
-      height: 365,
+      height: 328,
       color: Colors.transparent,
       child: Stack(
         children: [
           Positioned(
             left: 18.0,
             right: 18.0,
-            bottom: 0.0,
+            bottom: 6.0,
             child: Container(
               height: 20,
               width: MediaQuery
@@ -34,7 +34,7 @@ class ChallangeCardView extends StatelessWidget {
           Positioned(
             left: 10.0,
             right: 10.0,
-            bottom: 12.0,
+            bottom: 15.0,
             child: Container(
               height: 20,
               width: MediaQuery
@@ -48,7 +48,7 @@ class ChallangeCardView extends StatelessWidget {
             ),
           ),
           Container(
-            height: 340,
+            height: 300,
             width: MediaQuery
                 .of(context)
                 .size
@@ -61,14 +61,14 @@ class ChallangeCardView extends StatelessWidget {
                   color: AppColors.cardBorderColor
               ),
             ),
-            padding: EdgeInsets.only(left: 50,right: 50,top: 15,bottom: 10),
+            padding: EdgeInsets.only(left: 40,right: 40,top: 15,bottom: 10),
             child: Center(
               child: Text(
                 "Watch a relaxing movie, immerse yourself completely in the experience.",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     fontSize: 24,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w600,
                     color: AppColors.cardBorderColor
                 ),
 

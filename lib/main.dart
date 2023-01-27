@@ -7,7 +7,9 @@ import 'package:get/get.dart';
 initializeFirebase() async {
   await Firebase.initializeApp();
   // Pass all uncaught errors from the framework to Crashlytics.
-  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
+  //FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
+
+  FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
 }
 
 void main() async {

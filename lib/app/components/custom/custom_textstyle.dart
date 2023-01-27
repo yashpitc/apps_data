@@ -39,4 +39,56 @@ static final appbarFirstTitleStyle = TextStyle(
     fontWeight: FontWeight.w600,
   );
 
+
+  static final cardTextStyle = TextStyle(
+    color: AppColors.blackColor,
+    fontSize: 16,
+    fontWeight: FontWeight.w600,
+  );
+
+  static final cardTimeStyle = TextStyle(
+    color: AppColors.timeColor,
+    fontSize: 14,
+    fontWeight: FontWeight.w600,
+  );
+
+  static final buttonTextStyle = TextStyle(
+    color: AppColors.blackColor,
+    fontSize: 14,
+    fontWeight: FontWeight.w600,
+  );
+
+  static final notiCardTextStyle = TextStyle(
+    color: AppColors.blackColor,
+    fontSize: 14,
+    wordSpacing: 1.0,
+    fontWeight: FontWeight.w600,
+  );
+
+  static final notiCardTimeStyle = TextStyle(
+    color: AppColors.timeColor,
+    fontSize: 12,
+    fontWeight: FontWeight.w600,
+  );
+
+  static final historyTitleStyle = TextStyle(
+    color: AppColors.whiteColor,
+    fontSize: 14,
+    fontWeight : FontWeight.w600,
+  );
+
+  static final timeLeftStyle = TextStyle(
+    color: AppColors.blackColor,
+    fontSize: 17,
+    fontWeight : FontWeight.w700,
+  );
+
+  static final timeStampStyle = TextStyle(
+    color: AppColors.whiteColor,
+    fontSize: 17,
+    fontWeight : FontWeight.w700,
+  );
+
+
+
 }
