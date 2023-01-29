@@ -1,6 +1,6 @@
-import 'package:AppsData/app/constants/colors.dart';
-import 'package:AppsData/app/constants/images.dart';
-import 'package:AppsData/app/constants/strings.dart';
+import 'package:AppsData/app/utils/constants/colors.dart';
+import 'package:AppsData/app/utils/constants/images.dart';
+import 'package:AppsData/app/utils/constants/strings.dart';
 import 'package:AppsData/app/modules/splash/controllers/splash_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

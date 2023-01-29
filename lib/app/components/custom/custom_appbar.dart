@@ -1,9 +1,10 @@
 import 'package:AppsData/app/components/custom/custom_textstyle.dart';
-import 'package:AppsData/app/constants/colors.dart';
-import 'package:AppsData/app/constants/icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+
+import '../../utils/constants/colors.dart';
+import '../../utils/constants/icons.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   CustomAppBar(

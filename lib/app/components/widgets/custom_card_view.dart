@@ -1,5 +1,5 @@
 import 'package:AppsData/app/components/custom/custom_textstyle.dart';
-import 'package:AppsData/app/constants/colors.dart';
+import 'package:AppsData/app/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 class CustomCardView extends StatelessWidget {

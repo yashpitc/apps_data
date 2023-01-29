@@ -1,15 +1,15 @@
 import 'package:AppsData/app/components/custom/custom_appbar.dart';
 import 'package:AppsData/app/components/custom/custom_textstyle.dart';
 import 'package:AppsData/app/components/widgets/custom_card_view.dart';
-import 'package:AppsData/app/constants/colors.dart';
-import 'package:AppsData/app/constants/strings.dart';
+import 'package:AppsData/app/utils/constants/colors.dart';
+import 'package:AppsData/app/utils/constants/strings.dart';
 import 'package:AppsData/app/modules/daily_challenge/controllers/daily_challenge_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:percent_indicator/percent_indicator.dart';
-
 import '../../../components/widgets/challange_card_view.dart';
 import '../../../components/widgets/custom_button.dart';
+import '../../../routes/app_pages.dart';
 
 class DailyChallengeView extends StatelessWidget {
  const DailyChallengeView({Key? key}) : super(key: key);
@@ -72,7 +72,11 @@ class DailyChallengeView extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 40),
-                  CustomButton(onTap: () {},buttonText: "COMPLETE CHALLENGE",),
+                  CustomButton(
+                    contentPadding: const EdgeInsets.only(top: 15.0,bottom:15.0 ),
+                    buttonText: "COMPLETE CHALLENGE",onTap: () {
+                    Get.toNamed(Routes.FEEDBACKQUESTIONVIEW);
+                  },),
                   SizedBox(height: 20),
                 ],
               ),

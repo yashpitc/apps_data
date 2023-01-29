@@ -9,6 +9,7 @@ abstract class Routes {
   static const NOTIFICATIONVIEW = _Paths.NOTIFICATIONVIEW;
   static const DAILYCHALLENGEVIEW = _Paths.DAILYCHALLENGEVIEW;
   static const COMPLETECHALLENGEVIEW = _Paths.COMPLETECHALLENGEVIEW;
+  static const FEEDBACKQUESTIONVIEW = _Paths.FEEDBACKQUESTIONVIEW;
 }
 
 abstract class _Paths {
@@ -19,4 +20,5 @@ abstract class _Paths {
   static const NOTIFICATIONVIEW = '/notificationview';
   static const DAILYCHALLENGEVIEW = '/dailychallengeview';
   static const COMPLETECHALLENGEVIEW = '/completechallengeview';
+  static const FEEDBACKQUESTIONVIEW = '/feedbackquestionview';
 }

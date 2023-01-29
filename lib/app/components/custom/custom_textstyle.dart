@@ -1,5 +1,7 @@
-import 'package:AppsData/app/constants/colors.dart';
+import 'package:AppsData/app/utils/constants/colors.dart';
 import 'package:flutter/cupertino.dart';
+
+import '../../utils/constants/colors.dart';
 
 class CustomTextStyle {
 
@@ -55,7 +57,7 @@ static final appbarFirstTitleStyle = TextStyle(
   static final buttonTextStyle = TextStyle(
     color: AppColors.blackColor,
     fontSize: 14,
-    fontWeight: FontWeight.w600,
+    fontWeight: FontWeight.w700,
   );
 
   static final notiCardTextStyle = TextStyle(
@@ -90,5 +92,23 @@ static final appbarFirstTitleStyle = TextStyle(
   );
 
 
+  static final hintStyle = TextStyle(
+  fontSize: 15,
+  fontWeight: FontWeight.w700,
+  height: 1.0,
+  color: AppColors.hintColor
+  );
+
+  static final questionStyle = TextStyle(
+      fontSize: 18,
+      fontWeight: FontWeight.w700,
+      color: AppColors.blackColor
+  );
+  static final questionTitleStyle = TextStyle(
+      fontSize: 18,
+      overflow: TextOverflow.visible,
+      fontWeight: FontWeight.w700,
+      color: AppColors.questionColor
+  );
 
 }

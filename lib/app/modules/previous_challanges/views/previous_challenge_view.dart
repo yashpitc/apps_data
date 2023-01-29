@@ -1,6 +1,6 @@
 import 'package:AppsData/app/components/custom/custom_appbar.dart';
-import 'package:AppsData/app/constants/colors.dart';
-import 'package:AppsData/app/constants/strings.dart';
+import 'package:AppsData/app/utils/constants/colors.dart';
+import 'package:AppsData/app/utils/constants/strings.dart';
 import 'package:AppsData/app/modules/previous_challanges/controllers/previous_challenge_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

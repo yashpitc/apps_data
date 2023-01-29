@@ -1,14 +1,17 @@
 import 'package:AppsData/app/components/custom/custom_textstyle.dart';
-import 'package:AppsData/app/constants/colors.dart';
+import 'package:AppsData/app/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 class CustomButton extends StatelessWidget {
   const CustomButton({Key? key,
   required this.onTap,
-    this.buttonText
+    this.buttonText,
+    this.contentPadding
+
   }) : super(key: key);
 
   final String? buttonText;
   final GestureTapCallback? onTap;
+  final EdgeInsetsGeometry? contentPadding;
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
@@ -20,7 +23,7 @@ class CustomButton extends StatelessWidget {
           ),
         ),
         child: Padding(
-          padding: const EdgeInsets.only(top: 15.0,bottom:15.0 ),
+          padding: contentPadding!,
           child: Text(
               buttonText!,
             style: CustomTextStyle.buttonTextStyle,

@@ -15,4 +15,7 @@ class AppColors {
   static Color blueColor = const Color(0xFF5370E5);
   static Color timeColor = const Color(0x7A000000);
   static Color completeBGColor = const Color(0xFF9886C3);
+  static Color textFieldBorderColor = const Color(0xFF707070);
+  static Color hintColor = const Color(0x4A000000);
+  static Color questionColor = const Color(0xFF9886C3);
 }

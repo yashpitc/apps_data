@@ -1,10 +1,11 @@
 import 'package:AppsData/app/components/widgets/custom_button.dart';
-import 'package:AppsData/app/constants/images.dart';
+import 'package:AppsData/app/utils/constants/images.dart';
 import 'package:AppsData/app/routes/app_pages.dart';
 import "package:flutter/material.dart";
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import '../../../constants/colors.dart';
+
+import '../../../utils/constants/colors.dart';
 
 class CompleteChallengeView extends StatelessWidget {
   const CompleteChallengeView({Key? key}) : super(key: key);
@@ -22,6 +23,7 @@ class CompleteChallengeView extends StatelessWidget {
             const Spacer(),
             CustomButton(
                 buttonText: "TAKE NEW CHALLENGE",
+                contentPadding: const EdgeInsets.only(top: 15.0,bottom:15.0 ),
                 onTap: () {
                   Get.toNamed(Routes.DASHBOARDVIEW);
                 }),

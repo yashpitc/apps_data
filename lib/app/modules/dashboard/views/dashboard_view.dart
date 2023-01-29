@@ -1,8 +1,8 @@
 import 'package:AppsData/app/components/custom/custom_appbar.dart';
 import 'package:AppsData/app/components/custom/custom_textstyle.dart';
-import 'package:AppsData/app/constants/colors.dart';
-import 'package:AppsData/app/constants/icons.dart';
-import 'package:AppsData/app/constants/strings.dart';
+import 'package:AppsData/app/utils/constants/colors.dart';
+import 'package:AppsData/app/utils/constants/icons.dart';
+import 'package:AppsData/app/utils/constants/strings.dart';
 import 'package:AppsData/app/routes/app_pages.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';

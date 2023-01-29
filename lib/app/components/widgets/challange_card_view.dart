@@ -1,4 +1,4 @@
-import 'package:AppsData/app/constants/colors.dart';
+import 'package:AppsData/app/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 class ChallengeCardView extends StatelessWidget {

@@ -1,6 +1,7 @@
 
 import 'package:AppsData/app/modules/daily_challenge/views/daily_challenge_view.dart';
 import 'package:AppsData/app/modules/dashboard/views/dashboard_view.dart';
+import 'package:AppsData/app/modules/feedback%20question/views/feedback_question_view.dart';
 import 'package:get/get.dart';
 
 import '../modules/complete_challenge/views/complete_challenge_view.dart';
@@ -38,6 +39,10 @@ class AppPages {
     GetPage(
         name: _Paths.COMPLETECHALLENGEVIEW,
         page: () => const CompleteChallengeView()
+    ),
+    GetPage(
+        name: _Paths.FEEDBACKQUESTIONVIEW,
+        page: () => const FeedbackQuestionView()
     ),
 
   ];
