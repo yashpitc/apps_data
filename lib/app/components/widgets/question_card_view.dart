@@ -96,6 +96,11 @@ class QuestionCardView extends StatelessWidget {
                                 width: 0, color: AppColors.textFieldBgColor),
                             borderRadius: BorderRadius.circular(15.0),
                           ),
+                          errorBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                width: 0, color: AppColors.textFieldBgColor),
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
                           focusedErrorBorder: OutlineInputBorder(
                             borderSide: BorderSide(
                                 width: 0, color: AppColors.textFieldBgColor),
