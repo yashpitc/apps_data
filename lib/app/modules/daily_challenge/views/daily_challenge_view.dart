@@ -41,8 +41,11 @@ class DailyChallengeView extends StatelessWidget {
                   SizedBox(height: 20),
                   ChallengeCardView(),
                   SizedBox(height: 40),
-                  Text(AppStrings.TIMELEFTTEXT,
-                    style: CustomTextStyle.timeLeftStyle,
+                  FittedBox(
+                    fit: BoxFit.fitWidth,
+                    child: Text(AppStrings.TIMELEFTTEXT,
+                      style: CustomTextStyle.timeLeftStyle,
+                    ),
                   ),
                   SizedBox(height: 25),
                   LinearPercentIndicator(

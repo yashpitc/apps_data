@@ -18,4 +18,5 @@ class AppColors {
   static Color textFieldBorderColor = const Color(0xFF707070);
   static Color hintColor = const Color(0x4A000000);
   static Color questionColor = const Color(0xFF9886C3);
+  static Color textFieldBgColor = const Color(0xFFCFBEDE).withOpacity(0.2);
 }

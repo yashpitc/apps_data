@@ -34,10 +34,11 @@ class FeedbackQuestionView extends StatelessWidget {
                       contentPadding: EdgeInsets.only(left: 45,right: 45,top: 15,bottom: 15),
                       onTap: () {
                         if (controller.formKey.currentState!.validate()){
-                          controller.changeQuestionCount();
-                          //Get.toNamed(Routes.COMPLETECHALLENGEVIEW);
+                          Get.toNamed(Routes.COMPLETECHALLENGEVIEW);
+                          //controller.changeQuestionCount();
+                          // controller.changeQuestion(0);
                         }else{
-                          showSnackBar("Answer Can't be empty",context);
+                          showSnackBar("Answer can't be empty",context);
                         }
 
                       }),
@@ -53,7 +54,7 @@ class FeedbackQuestionView extends StatelessWidget {
   showSnackBar(String text,BuildContext context) {
     return ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(text, style: TextStyle(color: AppColors.dashboardBGColor)),
+        content: Text(text, style: TextStyle(color: AppColors.blackColor)),
         backgroundColor: AppColors.whiteColor,
       ),
     );

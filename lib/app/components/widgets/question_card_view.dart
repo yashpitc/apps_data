@@ -64,47 +64,59 @@ class QuestionCardView extends StatelessWidget {
                   children: [
                     Text("Question  ${controller!.remainQuestion.value}/3", style: CustomTextStyle.questionStyle),
                     const SizedBox(height: 15),
-                    Text("Did you enjoy this challenge?",
-                        style: CustomTextStyle.questionTitleStyle),
-                    const SizedBox(height: 15),
-                    Stack(
-                      children: [
-                        for (int i = 0; i < 4; i++)
-                          Container(
-                            width: double.infinity,
-                            margin: EdgeInsets.only(
-                              top: 4 + (i + 1) * 33,
-                            ),
-                            height: 2.0,
-                            color: AppColors.textFieldBorderColor
+                    Flexible(
+                      child: Text(controller!.questionList[0].toString(),
+                          style: CustomTextStyle.questionTitleStyle),
+                    ),
+                    const SizedBox(height: 20),
+                    Form(
+                      key: controller!.formKey,
+                      child: TextFormField(
+                        controller: controller!.answerController,
+                       maxLength: controller!.maxLength,
+                        decoration: InputDecoration(
+                            hintText: "Your answer...",
+                            hintStyle: CustomTextStyle.hintStyle,
+                           contentPadding:  EdgeInsets.all(10.0),
+                          filled: true,
+                          fillColor: AppColors.textFieldBgColor,
+                            counterText: '${controller!.answerText.value.length.toString() + "/" + controller!.maxLength.toString() } characters',
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15.0),
+                            borderSide: BorderSide(
+                                width: 0, color: AppColors.textFieldBgColor),
                           ),
-                        Container(
-                          height: 140,
-                          child: Form(
-                            key: controller!.formKey,
-                            child: TextFormField(
-                              controller: controller!.answerController,
-                             //scrollPadding:const EdgeInsets.only(top:18),
-                              decoration: InputDecoration(
-                                  hintText: "Your answer...",
-                                  hintStyle: CustomTextStyle.hintStyle,
-                                 contentPadding: const EdgeInsets.only(top:10,bottom: 10),
-                                  border: InputBorder.none),
-                              cursorWidth: 2.0,
-                              cursorColor: AppColors.blackColor,
-                              style: TextStyle(
-                                height: 1.5,
-                                fontSize: 18.0,
-                              ),
-                              keyboardType: TextInputType.multiline,
-                               textInputAction: TextInputAction.newline,
-                              expands: true,
-                              maxLines: null,
-                              validator: (value) => FormFieldValidation().validateText(value!),
-                            ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                width: 0, color: AppColors.textFieldBgColor),
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                width: 0, color: AppColors.textFieldBgColor),
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
+                          focusedErrorBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                width: 0, color: AppColors.textFieldBgColor),
+                            borderRadius: BorderRadius.circular(15.0),
                           ),
                         ),
-                      ],
+                        cursorWidth: 2.0,
+                        cursorColor: AppColors.blackColor,
+                        style: TextStyle(
+                          height: 1.5,
+                          fontSize: 18.0,
+                        ),
+                        maxLines: 4,
+                        keyboardType: TextInputType.multiline,
+                         textInputAction: TextInputAction.newline,
+                        validator: (value) => FormFieldValidation().validateText(value!),
+                        onChanged: (value) {
+                          controller!.answerText.value = value;
+                        },
+
+                      ),
                     ),
                   ],
                 )),
