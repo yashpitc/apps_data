@@ -13,8 +13,9 @@ class QuestionCardView extends StatelessWidget {
   ValueChanged<String>? onFieldSubmitted;
   @override
   Widget build(BuildContext context) {
+    var dHeight = MediaQuery.of(context).size.height;
     return  Obx(() => Container(
-        height: 328,
+        height: dHeight > 800 ? 400 : 328,
         color: Colors.transparent,
         child: Stack(
           children: [
@@ -48,7 +49,7 @@ class QuestionCardView extends StatelessWidget {
               ),
             ),
             Container(
-                height: 300,
+                height: dHeight > 800 ? 375 : 300,
                 width: MediaQuery.of(context).size.width / 1.3,
                 decoration: BoxDecoration(
                   color: AppColors.cardBgColor,
@@ -113,7 +114,7 @@ class QuestionCardView extends StatelessWidget {
                           height: 1.5,
                           fontSize: 18.0,
                         ),
-                        maxLines: 4,
+                        maxLines: dHeight > 800 ? 6 :  4,
                         keyboardType: TextInputType.multiline,
                          textInputAction: TextInputAction.newline,
                         validator: (value) => FormFieldValidation().validateText(value!),

@@ -10,8 +10,9 @@ class ChallengeCardView extends StatelessWidget {
   }
 
   simpleCardView(BuildContext context) {
+    var dHeight = MediaQuery.of(context).size.height;
     return Container(
-      height: 328,
+      height: dHeight > 800 ? 400 : 328,
       color: Colors.transparent,
       child: Stack(
         children: [
@@ -48,7 +49,7 @@ class ChallengeCardView extends StatelessWidget {
             ),
           ),
           Container(
-            height: 300,
+            height: dHeight > 800 ? 375 : 300,
             width: MediaQuery
                 .of(context)
                 .size

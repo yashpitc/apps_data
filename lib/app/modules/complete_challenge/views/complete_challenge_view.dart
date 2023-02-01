@@ -4,7 +4,6 @@ import 'package:AppsData/app/routes/app_pages.dart';
 import "package:flutter/material.dart";
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-
 import '../../../utils/constants/colors.dart';
 
 class CompleteChallengeView extends StatelessWidget {
@@ -35,8 +34,9 @@ class CompleteChallengeView extends StatelessWidget {
   }
 
   cardView(BuildContext context) {
+    var dHeight = MediaQuery.of(context).size.height;
     return Container(
-      height: 328,
+      height:dHeight > 800 ? 400 : 328,
       color: Colors.transparent,
       child: Stack(
         children: [
@@ -70,7 +70,7 @@ class CompleteChallengeView extends StatelessWidget {
             ),
           ),
           Container(
-            height: 300,
+            height:dHeight > 800 ? 375 : 300,
             width: MediaQuery.of(context).size.width / 1.4,
             decoration: BoxDecoration(
               color: AppColors.cardBgColor,
