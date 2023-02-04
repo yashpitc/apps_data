@@ -6,7 +6,6 @@ class FirestoreService {
   FirebaseFirestore db = FirebaseFirestore.instance;
   FirestoreService._internal();
 
-  //final FirebaseFirestore db = FirebaseFirestore.instance;
 
 
   factory FirestoreService() {

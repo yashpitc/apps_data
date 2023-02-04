@@ -1,34 +1,33 @@
 {
   "project_info": {
-    "project_number": "623696170567",
-    "firebase_url": "https://laravel-firebase-ab5f4-default-rtdb.firebaseio.com",
-    "project_id": "laravel-firebase-ab5f4",
-    "storage_bucket": "laravel-firebase-ab5f4.appspot.com"
+    "project_number": "697657076184",
+    "project_id": "pitc-data-entry",
+    "storage_bucket": "pitc-data-entry.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:623696170567:android:f66ff8a9102ee8ef4feb62",
+        "mobilesdk_app_id": "1:697657076184:android:e18afe2e6c59756051aaad",
         "android_client_info": {
-          "package_name": "com.pitc.appsdata"
+          "package_name": "com.pitc.mindfulness"
         }
       },
       "oauth_client": [
         {
-          "client_id": "623696170567-gs54obegtuq49vb832vv8kjl48r06rbr.apps.googleusercontent.com",
+          "client_id": "697657076184-0f6j3dut12vdenpqei5gmksaqf16humg.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyD4M-W8JFvEMf4sejSQkv9AtuCZIdoxoPI"
+          "current_key": "AIzaSyCTUerN1uPXe9As4IqpiPT38kJ28oRnRis"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "623696170567-gs54obegtuq49vb832vv8kjl48r06rbr.apps.googleusercontent.com",
+              "client_id": "697657076184-0f6j3dut12vdenpqei5gmksaqf16humg.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

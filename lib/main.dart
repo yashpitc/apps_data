@@ -14,7 +14,8 @@ initializeFirebase() async {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  initializeFirebase();
+  await Firebase.initializeApp();
+  // initializeFirebase();
   runApp(
     GetMaterialApp(
       debugShowCheckedModeBanner: false,
