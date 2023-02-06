@@ -1,4 +1,4 @@
-# data_app
+# mindfulness
 
 A new Flutter project.
 
