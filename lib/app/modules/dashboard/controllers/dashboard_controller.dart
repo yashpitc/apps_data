@@ -5,14 +5,15 @@ import 'package:get/get.dart';
 class DashboardController extends GetxController {
 
  FirestoreService firestoreService = FirestoreService();
-
+ List questionList = [];
+ 
   @override
   void onInit() {
     super.onInit();
     fetchSubjectId();
   }
 
-  Future<SubjectModel> fetchSubjectId() async {
+  Future fetchSubjectId() async {
     List subjectIdList = [];
     try {
       await firestoreService.db
@@ -22,36 +23,47 @@ class DashboardController extends GetxController {
           .then((DocumentSnapshot documentSnapshot) {
         if (documentSnapshot.exists) {
           List subjectList = documentSnapshot.get("subjects");
-         print("subjects:"+ subjectList.toString());
+      //  print("subjects:"+ subjectList.toString());
           for (var element in subjectList) {
-          // subjectIdList.add(element);
-            return SubjectModel(subjectID: element);
-            print("element---" + subjectIdList[0].subjectID.toString());
+            var subjectId = element['subjet_id'];
+          //  print("element----"+ element["subjet_id"].toString());
+         // subjectIdList.add(element['subjet_id']);
+          //  return SubjectModel(subjectID: element);
+           // print("element---" + subjectIdList[0].subjectID.toString());
+          fetchSubjectsQuestions(subjectId);
             // questionList.add(element);
           }
-          fetchSubjectsQuestions(subjectIdList);
+
           // return questionList;
         } else {
+          print("document not exist");
           //X return questionList;
         }
       });
     } catch (e) {
-      return SubjectModel();
     }
-    return SubjectModel();
   }
 
-  Future fetchSubjectsQuestions(List SubjectIdList) async {
-    //List questionList = [];
+  Future fetchSubjectsQuestions(String subjectId) async {
 
     try {
       await firestoreService.db
           .collection("subject")
+          .doc(subjectId)
           .get()
-          .then((documentSnapshot) {
-        if (documentSnapshot != null) {
-          List subjectList = documentSnapshot.docs;
-          print("subjects:"+ subjectList.toString());
+          .then((DocumentSnapshot documentSnapshot) {
+        if (documentSnapshot.exists) {
+          Object? documentData = documentSnapshot.data();
+        // bool trendIndex = documentData.indexWhere((f) => f['name'] == trendName);
+          questionList.add(documentData);
+
+         // questionList.add(documentSnapshot.data());
+          print("question Data" + questionList.toString());
+          // for (int i = 0; i < documentSnapshot.docs.length; i++) {
+          //   var a = documentSnapshot.docs[i];
+          //   print(a.documentID);
+          // }
+          //print("subjects:"+ documentSnapshot.data().toString());
           // for (var element in subjectList) {
           //  return SubjectModel(subjectID: element);
           //   // print("element" + subjectIds.toString());
@@ -63,7 +75,7 @@ class DashboardController extends GetxController {
         }
       });
     } catch (e) {
-      return [];
+      return null;
     }
    // return questionList;
   }
