@@ -2,11 +2,15 @@ import 'package:AppsData/app/services/firebase_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 
+import '../../../data/models/QuestionModel.dart';
+import '../../../data/models/SubjectModel.dart';
+
 class DashboardController extends GetxController {
 
- FirestoreService firestoreService = FirestoreService();
- List questionList = [];
- 
+  FirestoreService firestoreService = FirestoreService();
+  List subjectList = [];
+  List<QuestionModel> questionList = [];
+
   @override
   void onInit() {
     super.onInit();
@@ -23,77 +27,65 @@ class DashboardController extends GetxController {
           .then((DocumentSnapshot documentSnapshot) {
         if (documentSnapshot.exists) {
           List subjectList = documentSnapshot.get("subjects");
-      //  print("subjects:"+ subjectList.toString());
           for (var element in subjectList) {
             var subjectId = element['subjet_id'];
-          //  print("element----"+ element["subjet_id"].toString());
-         // subjectIdList.add(element['subjet_id']);
-          //  return SubjectModel(subjectID: element);
-           // print("element---" + subjectIdList[0].subjectID.toString());
-          fetchSubjectsQuestions(subjectId);
-            // questionList.add(element);
+            fetchSubjectsQuestions(subjectId);
           }
-
-          // return questionList;
         } else {
           print("document not exist");
           //X return questionList;
         }
       });
-    } catch (e) {
-    }
+    } catch (e) {}
   }
 
   Future fetchSubjectsQuestions(String subjectId) async {
-
+    subjectList.clear();
     try {
       await firestoreService.db
           .collection("subject")
           .doc(subjectId)
           .get()
-          .then((DocumentSnapshot documentSnapshot) {
+          .then((documentSnapshot) {
         if (documentSnapshot.exists) {
-          Object? documentData = documentSnapshot.data();
-        // bool trendIndex = documentData.indexWhere((f) => f['name'] == trendName);
-          questionList.add(documentData);
-
-         // questionList.add(documentSnapshot.data());
-          print("question Data" + questionList.toString());
-          // for (int i = 0; i < documentSnapshot.docs.length; i++) {
-          //   var a = documentSnapshot.docs[i];
-          //   print(a.documentID);
-          // }
-          //print("subjects:"+ documentSnapshot.data().toString());
-          // for (var element in subjectList) {
-          //  return SubjectModel(subjectID: element);
-          //   // print("element" + subjectIds.toString());
-          //   // questionList.add(element);
-          // }
-         // return questionList;
+          Map<String, dynamic> documentData = documentSnapshot.data() as Map<String, dynamic>;
+          // print("documntdata" + documentData.toString());
+          //   documentData['subject_enable'] =
+          subjectList.add(documentData);
+          print("question Data ::" + subjectList.toString());
+          for (var item in subjectList.where((
+              element) => element["subject_enable"] == true)) {
+            print("item------" + item.toString());
+            getQuestions(item["subject_id"]);
+          }
+          subjectList.clear();
         } else {
-         //X return questionList;
         }
       });
     } catch (e) {
       return null;
     }
-   // return questionList;
+    // return questionList;
   }
 
+  Future getQuestions(String subjectId) async {
+    await firestoreService.db
+        .collection("subject")
+        .doc(subjectId)
+        .collection("questions")
+        .doc(subjectId)
+        .get()
+        .then((DocumentSnapshot documentSnapshot) {
+      if (documentSnapshot.exists) {
+        List data = documentSnapshot.get("data");
+        print("data" + data.toString());
+        // for (var element in data) {
+          //questionList.add(QuestionModel.fromJson(data));
+       // }
+        print("qestionlist-----" + questionList.toString());
+      } else {
 
-
-
-
-}
-
-class SubjectModel {
-   int? subjectID;
-
-  SubjectModel({
-     this.subjectID,
-  });
-
-  SubjectModel.fromMap(DocumentSnapshot data) {
-    subjectID = data['subjet_id'];
+      }
+    });
   }
 }

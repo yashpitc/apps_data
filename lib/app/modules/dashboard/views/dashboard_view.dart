@@ -12,7 +12,7 @@ import '../../../components/widgets/challange_card_view.dart';
 import '../../../components/widgets/custom_round_button.dart';
 
 class DashboardView extends StatelessWidget {
-  const DashboardView({super.key});
+  const DashboardView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
