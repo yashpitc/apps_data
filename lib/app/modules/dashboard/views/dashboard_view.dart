@@ -47,21 +47,21 @@ class DashboardView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text("TOTAL CHALLANAGES", style: CustomTextStyle.ChtitleStyle),
-                  Text("60", style: CustomTextStyle.ChCountStyle),
+                  Text(controller.questionList.length.toString(), style: CustomTextStyle.ChCountStyle),
                 ],
               ),
               SizedBox(height: 22),
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
                 Text("COMPLETED CHALLENGES", style: CustomTextStyle.ChtitleStyle),
-                Text("23", style: CustomTextStyle.ChCountStyle),
+                Text("0", style: CustomTextStyle.ChCountStyle),
               ]),
               SizedBox(height: 22),
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
                 Text("LOST CHALLENGES", style: CustomTextStyle.ChtitleStyle),
-                Text("03", style: CustomTextStyle.ChCountStyle)
+                Text("0", style: CustomTextStyle.ChCountStyle)
               ]),
               SizedBox(height: 40),
-              ChallengeCardView(),
+              ChallengeCardView(controller: controller),
               SizedBox(height: 40),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,

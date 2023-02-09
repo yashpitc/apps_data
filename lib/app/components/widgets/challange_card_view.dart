@@ -1,15 +1,18 @@
+import 'package:AppsData/app/modules/dashboard/controllers/dashboard_controller.dart';
 import 'package:AppsData/app/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
+import 'package:get/get.dart';
 
 class ChallengeCardView extends StatelessWidget {
-  const ChallengeCardView({Key? key}) : super(key: key);
-
+   ChallengeCardView({Key? key,this.controller}) : super(key: key);
+    DashboardController? controller;
   @override
   Widget build(BuildContext context) {
-    return simpleCardView(context);
+    return simpleCardView(context, controller!);
   }
 
-  simpleCardView(BuildContext context) {
+  simpleCardView(BuildContext context,DashboardController controller) {
     var dHeight = MediaQuery.of(context).size.height;
     return Container(
       height: dHeight > 800 ? 400 : 328,
@@ -63,16 +66,13 @@ class ChallengeCardView extends StatelessWidget {
               ),
             ),
             padding: EdgeInsets.only(left: 40,right: 40,top: 15,bottom: 10),
-            child: Center(
-              child: Text(
-                "Watch a relaxing movie, immerse yourself completely in the experience.",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.cardBorderColor
-                ),
-
+            child: Html(
+              data:  controller.questionList[0].toString(),
+             customTextAlign: (elem) => TextAlign.center,
+              defaultTextStyle: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.cardBorderColor
               ),
             ),
           ),

@@ -9,7 +9,10 @@ class DashboardController extends GetxController {
 
   FirestoreService firestoreService = FirestoreService();
   List subjectList = [];
-  List<QuestionModel> questionList = [];
+  List<QuestionModel> questionDataList = [];
+  List questionList = [];
+  var completedChallenges = 0;
+  var lostChallenges = 0;
 
   @override
   void onInit() {
@@ -22,17 +25,19 @@ class DashboardController extends GetxController {
     try {
       await firestoreService.db
           .collection("apps")
-          .doc("TestApp")
+          .doc("mindfulness")
           .get()
           .then((DocumentSnapshot documentSnapshot) {
         if (documentSnapshot.exists) {
           List subjectList = documentSnapshot.get("subjects");
           for (var element in subjectList) {
             var subjectId = element['subjet_id'];
+            // print("subject Id----- "+ subjectId.toString());
             fetchSubjectsQuestions(subjectId);
           }
+          update();
         } else {
-          print("document not exist");
+          // print("document not exist");
           //X return questionList;
         }
       });
@@ -48,19 +53,20 @@ class DashboardController extends GetxController {
           .get()
           .then((documentSnapshot) {
         if (documentSnapshot.exists) {
-          Map<String, dynamic> documentData = documentSnapshot.data() as Map<String, dynamic>;
+          Map<String, dynamic> documentData = documentSnapshot.data() as Map<
+              String,
+              dynamic>;
           // print("documntdata" + documentData.toString());
-          //   documentData['subject_enable'] =
           subjectList.add(documentData);
-          print("question Data ::" + subjectList.toString());
+          //print("question Data :: " + subjectList.toString());
           for (var item in subjectList.where((
               element) => element["subject_enable"] == true)) {
-            print("item------" + item.toString());
+            print("item------" + item["subject_id"].toString());
             getQuestions(item["subject_id"]);
           }
+          update();
           subjectList.clear();
-        } else {
-        }
+        } else {}
       });
     } catch (e) {
       return null;
@@ -72,20 +78,28 @@ class DashboardController extends GetxController {
     await firestoreService.db
         .collection("subject")
         .doc(subjectId)
-        .collection("questions")
+        .collection("question")
         .doc(subjectId)
         .get()
         .then((DocumentSnapshot documentSnapshot) {
       if (documentSnapshot.exists) {
         List data = documentSnapshot.get("data");
-        print("data" + data.toString());
-        // for (var element in data) {
-          //questionList.add(QuestionModel.fromJson(data));
-       // }
-        print("qestionlist-----" + questionList.toString());
+        for (var element in data) {
+          questionDataList.add(QuestionModel.fromJson(element));
+        }
+        addQuestions(questionDataList);
+        update();
       } else {
-
+        print("document not exist last---");
       }
     });
   }
+
+  Future addQuestions(List<QuestionModel> list) async {
+    for (var item in list) {
+      questionList.add(item.question);
+    }
+    print("questionlist----" + questionList.toString());
+  }
+
 }
