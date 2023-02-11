@@ -74,12 +74,14 @@ class ChallengeCardView extends StatelessWidget {
                   children: [
                     Html(
                       data: controller.questionList[0].toString(),
-                      customTextAlign: (elem) => TextAlign.center,
-                      defaultTextStyle: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.cardBorderColor
-                     ),
+                        style: {
+                        "p": Style(
+                              fontSize: FontSize(24.0),
+                          fontWeight: FontWeight.w600,
+                           alignment: Alignment.center,
+                            color: AppColors.cardBorderColor
+                        ),
+                        },
                     ),
                   ],
                 ),
