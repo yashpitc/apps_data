@@ -65,16 +65,25 @@ class ChallengeCardView extends StatelessWidget {
                   color: AppColors.cardBorderColor
               ),
             ),
-            padding: EdgeInsets.only(left: 40,right: 40,top: 15,bottom: 10),
-            child: Html(
-              data:  controller.questionList[0].toString(),
-             customTextAlign: (elem) => TextAlign.center,
-              defaultTextStyle: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.w600,
-                  color: AppColors.cardBorderColor
+            padding: const EdgeInsets.only(left: 40,right: 40,top: 15,bottom: 10),
+            child: Center(
+              child: controller.isLoading.value?
+                 CircularProgressIndicator(color: AppColors.cardBorderColor):
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Html(
+                      data: controller.questionList[0].toString(),
+                      customTextAlign: (elem) => TextAlign.center,
+                      defaultTextStyle: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.cardBorderColor
               ),
             ),
+                  ],
+                ),
+          ),
           ),
         ],
       ),

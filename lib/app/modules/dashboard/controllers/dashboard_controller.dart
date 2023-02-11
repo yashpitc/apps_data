@@ -13,6 +13,7 @@ class DashboardController extends GetxController {
   List questionList = [];
   var completedChallenges = 0;
   var lostChallenges = 0;
+  var isLoading = false.obs;
 
   @override
   void onInit() {
@@ -21,7 +22,7 @@ class DashboardController extends GetxController {
   }
 
   Future fetchSubjectId() async {
-    List subjectIdList = [];
+    isLoading.value = true;
     try {
       await firestoreService.db
           .collection("apps")
@@ -32,9 +33,9 @@ class DashboardController extends GetxController {
           List subjectList = documentSnapshot.get("subjects");
           for (var element in subjectList) {
             var subjectId = element['subjet_id'];
-            // print("subject Id----- "+ subjectId.toString());
             fetchSubjectsQuestions(subjectId);
           }
+
           update();
         } else {
           // print("document not exist");
@@ -53,15 +54,9 @@ class DashboardController extends GetxController {
           .get()
           .then((documentSnapshot) {
         if (documentSnapshot.exists) {
-          Map<String, dynamic> documentData = documentSnapshot.data() as Map<
-              String,
-              dynamic>;
-          // print("documntdata" + documentData.toString());
+          Map<String, dynamic> documentData = documentSnapshot.data() as Map<String, dynamic>;
           subjectList.add(documentData);
-          //print("question Data :: " + subjectList.toString());
-          for (var item in subjectList.where((
-              element) => element["subject_enable"] == true)) {
-            print("item------" + item["subject_id"].toString());
+          for (var item in subjectList.where((element) => element["subject_enable"] == true)) {
             getQuestions(item["subject_id"]);
           }
           update();
@@ -71,10 +66,10 @@ class DashboardController extends GetxController {
     } catch (e) {
       return null;
     }
-    // return questionList;
   }
 
   Future getQuestions(String subjectId) async {
+    isLoading.value = true;
     await firestoreService.db
         .collection("subject")
         .doc(subjectId)
@@ -90,16 +85,19 @@ class DashboardController extends GetxController {
         addQuestions(questionDataList);
         update();
       } else {
-        print("document not exist last---");
+        print("document not exist");
       }
     });
   }
 
   Future addQuestions(List<QuestionModel> list) async {
+  isLoading.value = true;
+  questionList.clear();
     for (var item in list) {
       questionList.add(item.question);
     }
-    print("questionlist----" + questionList.toString());
+    isLoading.value = false;
+    //print("questionlist----" + questionList.toString());
   }
 
 }
