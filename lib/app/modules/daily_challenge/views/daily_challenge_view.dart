@@ -10,10 +10,11 @@ import 'package:percent_indicator/percent_indicator.dart';
 import '../../../components/widgets/challange_card_view.dart';
 import '../../../components/widgets/custom_button.dart';
 import '../../../routes/app_pages.dart';
+import '../../dashboard/controllers/dashboard_controller.dart';
 
 class DailyChallengeView extends StatelessWidget {
- const DailyChallengeView({Key? key}) : super(key: key);
-
+  DailyChallengeView({Key? key}) : super(key: key);
+  DashboardController controller = Get.arguments;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,10 +27,7 @@ class DailyChallengeView extends StatelessWidget {
         secondTitleColor: AppColors.whiteColor,
         notiButton: false,
       ),
-      body: GetBuilder<DailyChallengeController>(
-          init: DailyChallengeController(),
-          builder: (controller) {
-            return SingleChildScrollView(
+      body:SingleChildScrollView(
               padding: const EdgeInsets.only(left: 18.0, right: 18.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -39,7 +37,7 @@ class DailyChallengeView extends StatelessWidget {
                     thickness: 0.2,
                   ),
                   SizedBox(height: 20),
-                  ChallengeCardView(),
+                  ChallengeCardView(controller: controller),
                   SizedBox(height: 40),
                   FittedBox(
                     fit: BoxFit.fitWidth,
@@ -83,10 +81,9 @@ class DailyChallengeView extends StatelessWidget {
                   SizedBox(height: 20),
                 ],
               ),
-            );
+            )
+           );
           }
-      ),
-    );
   }
 
-}
+

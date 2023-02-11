@@ -34,7 +34,7 @@ class AppPages {
     ),
     GetPage(
         name: _Paths.DAILYCHALLENGEVIEW,
-        page: () => const DailyChallengeView()
+        page: () =>  DailyChallengeView()
     ),
     GetPage(
         name: _Paths.COMPLETECHALLENGEVIEW,

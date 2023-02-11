@@ -69,12 +69,15 @@ class DashboardView extends StatelessWidget {
                   CustomRoundButton(
                     icon: AppIcons.continueIcon,
                     onTap: () {
-                      Get.toNamed(Routes.DAILYCHALLENGEVIEW);
+                      Get.toNamed(Routes.DAILYCHALLENGEVIEW,arguments: controller);
                     },
                   ),
                   CustomRoundButton(
                     icon: AppIcons.refreshIcon,
-                    onTap: () {},
+                    onTap: () {
+                      showSnackBar("Under Working...",context);
+                     // controller.getNextQuestions(controller.questionList[0]);
+                    },
                   ),
                   CustomRoundButton(
                     icon: AppIcons.historyIcon,
@@ -90,5 +93,14 @@ class DashboardView extends StatelessWidget {
         }
       ),
     ));
+  }
+
+  showSnackBar(String text,BuildContext context) {
+    return ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(text, style: TextStyle(color: AppColors.blackColor)),
+        backgroundColor: AppColors.whiteColor,
+      ),
+    );
   }
 }

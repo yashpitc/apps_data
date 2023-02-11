@@ -35,11 +35,9 @@ class DashboardController extends GetxController {
             var subjectId = element['subjet_id'];
             fetchSubjectsQuestions(subjectId);
           }
-
           update();
         } else {
           // print("document not exist");
-          //X return questionList;
         }
       });
     } catch (e) {}
@@ -99,5 +97,11 @@ class DashboardController extends GetxController {
     isLoading.value = false;
     //print("questionlist----" + questionList.toString());
   }
+
+   getNextQuestions(int index) {
+      int currentIndex = questionList.indexOf(index);
+      var nextFlashcard = questionList[currentIndex + 1];
+      questionList[index] = nextFlashcard;
+    }
 
 }

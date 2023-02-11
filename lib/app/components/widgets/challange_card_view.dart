@@ -2,11 +2,11 @@ import 'package:AppsData/app/modules/dashboard/controllers/dashboard_controller.
 import 'package:AppsData/app/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:get/get.dart';
 
 class ChallengeCardView extends StatelessWidget {
    ChallengeCardView({Key? key,this.controller}) : super(key: key);
     DashboardController? controller;
+
   @override
   Widget build(BuildContext context) {
     return simpleCardView(context, controller!);
@@ -31,7 +31,7 @@ class ChallengeCardView extends StatelessWidget {
                   .width / 1.4,
               decoration: BoxDecoration(
                   color: AppColors.appbgColor,
-                  borderRadius: BorderRadius.only(bottomLeft:Radius.circular(24.0),bottomRight: Radius.circular(24.0))
+                  borderRadius: const BorderRadius.only(bottomLeft:Radius.circular(24.0),bottomRight: Radius.circular(24.0))
               ),
             ),
           ),
@@ -79,8 +79,8 @@ class ChallengeCardView extends StatelessWidget {
                       fontSize: 24,
                       fontWeight: FontWeight.w600,
                       color: AppColors.cardBorderColor
-              ),
-            ),
+                     ),
+                    ),
                   ],
                 ),
           ),
