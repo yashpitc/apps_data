@@ -10,10 +10,13 @@ class DashboardController extends GetxController {
   FirestoreService firestoreService = FirestoreService();
   List subjectList = [];
   List<QuestionModel> questionDataList = [];
-  List questionList = [];
+  var questionList = [].obs;
   var completedChallenges = 0;
   var lostChallenges = 0;
   var isLoading = false.obs;
+  var isColorChange = false.obs;
+  var dailyQuestions = [].obs;
+  var questionValue = 0.obs;
 
   @override
   void onInit() {
@@ -90,18 +93,22 @@ class DashboardController extends GetxController {
 
   Future addQuestions(List<QuestionModel> list) async {
   isLoading.value = true;
-  questionList.clear();
+  questionList.value.clear();
     for (var item in list) {
-      questionList.add(item.question);
+      questionList.value.add(item.question.toString());
     }
     isLoading.value = false;
     //print("questionlist----" + questionList.toString());
   }
 
-   getNextQuestions(int index) {
-      int currentIndex = questionList.indexOf(index);
-      var nextFlashcard = questionList[currentIndex + 1];
-      questionList[index] = nextFlashcard;
+   getNextQuestions() {
+     isColorChange.value = !isColorChange.value;
+     int chunkSize = 2;
+     for (var i = 0; i < questionList.value.length; i += chunkSize) {
+       dailyQuestions.add(questionList.sublist(i, i+chunkSize > questionList.length ? questionList.length : i + chunkSize));
+     }
+     questionValue.value =  (questionValue.value == 0 ? 1 : 0);
+    //print("question valuie" + dailyQuestions.value[0][questionValue.value].toString());
     }
 
 }

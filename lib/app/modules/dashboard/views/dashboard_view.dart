@@ -47,7 +47,7 @@ class DashboardView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text("TOTAL CHALLANAGES", style: CustomTextStyle.ChtitleStyle),
-                  Text(controller.questionList.length.toString(), style: CustomTextStyle.ChCountStyle),
+                  Text(controller.questionList.value.length.toString(), style: CustomTextStyle.ChCountStyle),
                 ],
               ),
               SizedBox(height: 22),
@@ -75,8 +75,9 @@ class DashboardView extends StatelessWidget {
                   CustomRoundButton(
                     icon: AppIcons.refreshIcon,
                     onTap: () {
-                      showSnackBar("Under Working...",context);
-                     // controller.getNextQuestions(controller.questionList[0]);
+                      controller.getNextQuestions();
+                      //showSnackBar("Under Working...",context);
+                     //controller.getNextQuestions(controller.questionList[0]);
                     },
                   ),
                   CustomRoundButton(
