@@ -14,7 +14,7 @@ import '../../dashboard/controllers/dashboard_controller.dart';
 
 class DailyChallengeView extends StatelessWidget {
   DailyChallengeView({Key? key}) : super(key: key);
-  DashboardController controller = Get.arguments;
+  DashboardController dsController = Get.arguments;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,57 +29,62 @@ class DailyChallengeView extends StatelessWidget {
       ),
       body:SingleChildScrollView(
               padding: const EdgeInsets.only(left: 18.0, right: 18.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Divider(
-                    color: AppColors.blackColor,
-                    thickness: 0.2,
-                  ),
-                  SizedBox(height: 20),
-                  ChallengeCardView(controller: controller),
-                  SizedBox(height: 40),
-                  FittedBox(
-                    fit: BoxFit.fitWidth,
-                    child: Text(AppStrings.TIMELEFTTEXT,
-                      style: CustomTextStyle.timeLeftStyle,
-                    ),
-                  ),
-                  SizedBox(height: 25),
-                  LinearPercentIndicator(
-                    width: MediaQuery.of(context).size.width / 1.3,
-                    animation: true,
-                    lineHeight: 16.0,
-                    animationDuration: 2500,
-                    percent: 0.3,
-                    barRadius: Radius.circular(28.0),
-                    backgroundColor: AppColors.whiteColor,
-                    alignment:  MainAxisAlignment.center,
-                    //center: Text("80.0%"),
-                    linearStrokeCap: LinearStrokeCap.roundAll,
-                    progressColor: AppColors.cardBorderColor,
-                  ),
-                  SizedBox(height: 12),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 50.0,right: 50.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              child: GetBuilder<DailyChallengeController>(
+                init: DailyChallengeController(),
+                builder: (controller) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Text("02:30",
-                        style: CustomTextStyle.timeStampStyle),
-                        Text("24:00",
-                            style: CustomTextStyle.timeStampStyle),
+                        Divider(
+                          color: AppColors.blackColor,
+                          thickness: 0.2,
+                        ),
+                        SizedBox(height: 20),
+                        ChallengeCardView(controller: dsController),
+                        SizedBox(height: 40),
+                        FittedBox(
+                          fit: BoxFit.fitWidth,
+                          child: Text(AppStrings.TIMELEFTTEXT,
+                            style: CustomTextStyle.timeLeftStyle,
+                          ),
+                        ),
+                        SizedBox(height: 25),
+                        LinearPercentIndicator(
+                          width: MediaQuery.of(context).size.width / 1.3,
+                          animation: true,
+                          lineHeight: 16.0,
+                          animationDuration: 2500,
+                          percent: 0.3,
+                          barRadius: Radius.circular(28.0),
+                          backgroundColor: AppColors.whiteColor,
+                          alignment:  MainAxisAlignment.center,
+                          //center: Text("80.0%"),
+                          linearStrokeCap: LinearStrokeCap.roundAll,
+                          progressColor: AppColors.cardBorderColor,
+                        ),
+                        SizedBox(height: 12),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 50.0,right: 50.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("02:30",
+                                  style: CustomTextStyle.timeStampStyle),
+                              Text("24:00",
+                                  style: CustomTextStyle.timeStampStyle),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: 40),
+                        CustomButton(
+                          contentPadding: const EdgeInsets.only(top: 15.0,bottom:15.0 ),
+                          buttonText: "COMPLETE CHALLENGE",onTap: () {
+                          Get.toNamed(Routes.FEEDBACKQUESTIONVIEW);
+                        },),
+                        SizedBox(height: 20),
                       ],
-                    ),
-                  ),
-                  SizedBox(height: 40),
-                  CustomButton(
-                    contentPadding: const EdgeInsets.only(top: 15.0,bottom:15.0 ),
-                    buttonText: "COMPLETE CHALLENGE",onTap: () {
-                    Get.toNamed(Routes.FEEDBACKQUESTIONVIEW);
-                  },),
-                  SizedBox(height: 20),
-                ],
+                    );
+                }
               ),
             )
            );

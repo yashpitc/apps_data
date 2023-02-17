@@ -14,9 +14,9 @@ class DashboardController extends GetxController {
   var completedChallenges = 0;
   var lostChallenges = 0;
   var isLoading = false.obs;
-  var isColorChange = false.obs;
+  var isColorChange = true.obs;
   var dailyQuestions = [].obs;
-  var questionValue = 0.obs;
+  var questionValue = 1.obs;
 
   @override
   void onInit() {
@@ -58,11 +58,13 @@ class DashboardController extends GetxController {
           Map<String, dynamic> documentData = documentSnapshot.data() as Map<String, dynamic>;
           subjectList.add(documentData);
           for (var item in subjectList.where((element) => element["subject_enable"] == true)) {
+           // var index = item["index"];
             getQuestions(item["subject_id"]);
           }
           update();
           subjectList.clear();
-        } else {}
+        } else {
+        }
       });
     } catch (e) {
       return null;
@@ -97,18 +99,22 @@ class DashboardController extends GetxController {
     for (var item in list) {
       questionList.value.add(item.question.toString());
     }
+    getNextQuestions();
     isLoading.value = false;
+
     //print("questionlist----" + questionList.toString());
   }
 
    getNextQuestions() {
      isColorChange.value = !isColorChange.value;
      int chunkSize = 2;
+     dailyQuestions.clear();
      for (var i = 0; i < questionList.value.length; i += chunkSize) {
        dailyQuestions.add(questionList.sublist(i, i+chunkSize > questionList.length ? questionList.length : i + chunkSize));
      }
      questionValue.value =  (questionValue.value == 0 ? 1 : 0);
-    //print("question valuie" + dailyQuestions.value[0][questionValue.value].toString());
+     //print("question valuie ${dailyQuestions.value[0][questionValue.value]}");
+     //print("questionList  ${dailyQuestions.value.toString()}");
     }
 
 }
