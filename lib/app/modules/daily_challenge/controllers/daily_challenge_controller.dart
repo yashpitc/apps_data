@@ -13,15 +13,15 @@ class DailyChallengeController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-   var devicetoken = _getId();
+   var devicetoken = getId();
    print("devicetoken---"+ devicetoken.toString());
     getFcmToken();
 
   }
 
-  Future<String?> _getId() async {
+  Future<String?> getId() async {
     var deviceInfo = DeviceInfoPlugin();
-   if (Platform.isIOS) { // import 'dart:io'
+   if (Platform.isIOS) {
    var iosDeviceInfo = await deviceInfo.iosInfo;
     return iosDeviceInfo.identifierForVendor; // unique ID on iOS
     } else if(Platform.isAndroid) {
@@ -33,7 +33,7 @@ class DailyChallengeController extends GetxController {
 
     Future<String?> getFcmToken() {
     return FirebaseMessaging.instance.getToken().then((token) async{
-      print(token);
+      print("token" + token.toString());
       //prefs.setString('device_id', deviceId.toString());
       // firestoreService.db.collection(deviceId.toString()).doc(deviceId).set({
       //   'FCM_id':token
