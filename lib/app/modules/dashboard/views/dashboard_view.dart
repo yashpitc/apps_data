@@ -7,6 +7,7 @@ import 'package:AppsData/app/utils/constants/strings.dart';
 import 'package:AppsData/app/routes/app_pages.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import '../../../components/widgets/challange_card_view.dart';
 import '../../../components/widgets/custom_round_button.dart';
@@ -53,13 +54,23 @@ class DashboardView extends StatelessWidget {
               SizedBox(height: 22),
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
                 Text("COMPLETED CHALLENGES", style: CustomTextStyle.ChtitleStyle),
-                Text("0", style: CustomTextStyle.ChCountStyle),
+                Text(controller.completeChallengeCount.toString(), style: CustomTextStyle.ChCountStyle),
               ]),
               SizedBox(height: 22),
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
                 Text("LOST CHALLENGES", style: CustomTextStyle.ChtitleStyle),
-                Text("0", style: CustomTextStyle.ChCountStyle)
+                Text(controller.lostChallengeCount.toString(), style: CustomTextStyle.ChCountStyle)
               ]),
+              SizedBox(height: 45),
+              InkWell(
+                onTap: (){
+                  Get.toNamed(Routes.PREVIOUSCHALLENGEVIEW);
+                },
+                child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                  Text("CHALLENGE HISTORY", style: CustomTextStyle.ChtitleStyle),
+                  SvgPicture.asset(AppIcons.historyIcon, height: 28, width: 28,),
+                ]),
+              ),
               SizedBox(height: 40),
               ChallengeCardView(controller: controller),
               SizedBox(height: 40),
@@ -80,12 +91,12 @@ class DashboardView extends StatelessWidget {
                      //controller.getNextQuestions(controller.questionList[0]);
                     },
                   ),
-                  CustomRoundButton(
-                    icon: AppIcons.historyIcon,
-                    onTap: () {
-                      Get.toNamed(Routes.PREVIOUSCHALLENGEVIEW);
-                    },
-                  ),
+                  // CustomRoundButton(
+                  //   icon: AppIcons.historyIcon,
+                  //   onTap: () {
+                  //     Get.toNamed(Routes.PREVIOUSCHALLENGEVIEW);
+                  //   },
+                  // ),
                 ],
               ),
               SizedBox(height: 40),

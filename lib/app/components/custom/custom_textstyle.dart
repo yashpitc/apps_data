@@ -37,7 +37,7 @@ static final appbarFirstTitleStyle = TextStyle(
 
   static final ChCountStyle = TextStyle(
     color: AppColors.blackColor,
-    fontSize: 16,
+    fontSize: 22,
     fontWeight: FontWeight.w600,
   );
 

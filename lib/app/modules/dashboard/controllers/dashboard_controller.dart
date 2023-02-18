@@ -1,6 +1,7 @@
 import 'package:AppsData/app/services/firebase_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../data/models/QuestionModel.dart';
 import '../../../data/models/SubjectModel.dart';
@@ -8,6 +9,7 @@ import '../../../data/models/SubjectModel.dart';
 class DashboardController extends GetxController {
 
   FirestoreService firestoreService = FirestoreService();
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   List subjectList = [];
   List<QuestionModel> questionDataList = [];
   var questionList = [].obs;
@@ -17,11 +19,14 @@ class DashboardController extends GetxController {
   var isColorChange = true.obs;
   var dailyQuestions = [].obs;
   var questionValue = 1.obs;
+  int completeChallengeCount = 0;
+  int lostChallengeCount = 0;
 
   @override
   void onInit() {
     super.onInit();
     fetchSubjectId();
+    getChallengeCount();
   }
 
   Future fetchSubjectId() async {
@@ -115,6 +120,26 @@ class DashboardController extends GetxController {
      questionValue.value =  (questionValue.value == 0 ? 1 : 0);
      //print("question valuie ${dailyQuestions.value[0][questionValue.value]}");
      //print("questionList  ${dailyQuestions.value.toString()}");
+    }
+
+   Future getChallengeCount() async {
+     final SharedPreferences prefs = await _prefs;
+     var deviceId = prefs.getString('device_id');
+      await firestoreService.db.collection('mindfullness_users')
+          .doc(deviceId)
+          .get()
+          .then((DocumentSnapshot document) {
+            if(document.exists){
+              Map<String,dynamic> data = document.data() as Map<String,dynamic>;
+              completeChallengeCount = data['completed_challenges_count'];
+              lostChallengeCount = data["lost_challenges_count"];
+            }else {
+              completeChallengeCount = 0;
+              lostChallengeCount = 0;
+            }
+
+      });
+
     }
 
 }

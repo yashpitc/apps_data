@@ -79,7 +79,8 @@ class DailyChallengeView extends StatelessWidget {
                         CustomButton(
                           contentPadding: const EdgeInsets.only(top: 15.0,bottom:15.0 ),
                           buttonText: "COMPLETE CHALLENGE",onTap: () {
-                          Get.toNamed(Routes.FEEDBACKQUESTIONVIEW);
+                            controller.addCompletedChallenge();
+                          //Get.toNamed(Routes.FEEDBACKQUESTIONVIEW);
                         },),
                         SizedBox(height: 20),
                       ],
