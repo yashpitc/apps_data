@@ -63,13 +63,14 @@ class DashboardView extends StatelessWidget {
                   Text(controller.lostChallengeCount.value.toString(), style: CustomTextStyle.ChCountStyle)
                 ]),
                 SizedBox(height: 30),
-                InkWell(
+                GestureDetector(
                   onTap: (){
                     Get.toNamed(Routes.PREVIOUSCHALLENGEVIEW);
                   },
-                  child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
                     Text("CHALLENGE HISTORY", style: CustomTextStyle.ChtitleStyle),
-                    SvgPicture.asset(AppIcons.historyIcon, height: 28, width: 28,),
+                    SvgPicture.asset(AppIcons.historyIcon, height: 35, width: 35,),
                   ]),
                 ),
                 SizedBox(height: 40),
