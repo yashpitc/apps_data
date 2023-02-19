@@ -22,7 +22,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.DASHBOARDVIEW,
-      page: () => const DashboardView()
+      page: () =>  DashboardView()
     ),
     GetPage(
         name: _Paths.PREVIOUSCHALLENGEVIEW,
@@ -38,7 +38,7 @@ class AppPages {
     ),
     GetPage(
         name: _Paths.COMPLETECHALLENGEVIEW,
-        page: () => const CompleteChallengeView()
+        page: () =>  CompleteChallengeView()
     ),
     GetPage(
         name: _Paths.FEEDBACKQUESTIONVIEW,

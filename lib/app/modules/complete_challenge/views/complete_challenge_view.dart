@@ -1,4 +1,5 @@
 import 'package:AppsData/app/components/widgets/custom_button.dart';
+import 'package:AppsData/app/modules/dashboard/controllers/dashboard_controller.dart';
 import 'package:AppsData/app/utils/constants/images.dart';
 import 'package:AppsData/app/routes/app_pages.dart';
 import "package:flutter/material.dart";
@@ -7,8 +8,8 @@ import 'package:get/get.dart';
 import '../../../utils/constants/colors.dart';
 
 class CompleteChallengeView extends StatelessWidget {
-  const CompleteChallengeView({Key? key}) : super(key: key);
-
+   CompleteChallengeView({Key? key}) : super(key: key);
+   final dbController = Get.put(DashboardController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,6 +25,7 @@ class CompleteChallengeView extends StatelessWidget {
                 buttonText: "TAKE NEW CHALLENGE",
                 contentPadding: const EdgeInsets.only(top: 15.0,bottom:15.0 ),
                 onTap: () {
+                  dbController.updateChallengeCount();
                   Get.toNamed(Routes.DASHBOARDVIEW);
                 }),
             const Spacer(),

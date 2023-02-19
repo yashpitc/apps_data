@@ -9,86 +9,94 @@ import 'package:get/get.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import '../../../components/widgets/challange_card_view.dart';
 import '../../../components/widgets/custom_button.dart';
-import '../../../routes/app_pages.dart';
 import '../../dashboard/controllers/dashboard_controller.dart';
 
 class DailyChallengeView extends StatelessWidget {
   DailyChallengeView({Key? key}) : super(key: key);
   DashboardController dsController = Get.arguments;
+  final dbController = Get.put(DashboardController());
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.dashboardBGColor,
-      appBar: CustomAppBar(
-        firstTitle: AppStrings.YOURDAILY,
-        secondTitle: AppStrings.APPLastTitle,
-        backbutton: false,
-        firstTitleColor: AppColors.blackColor,
-        secondTitleColor: AppColors.whiteColor,
-        notiButton: false,
-      ),
-      body:SingleChildScrollView(
-              padding: const EdgeInsets.only(left: 18.0, right: 18.0),
-              child: GetBuilder<DailyChallengeController>(
-                init: DailyChallengeController(),
-                builder: (controller) {
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Divider(
-                          color: AppColors.blackColor,
-                          thickness: 0.2,
-                        ),
-                        SizedBox(height: 20),
-                        ChallengeCardView(controller: dsController),
-                        SizedBox(height: 40),
-                        FittedBox(
-                          fit: BoxFit.fitWidth,
-                          child: Text(AppStrings.TIMELEFTTEXT,
-                            style: CustomTextStyle.timeLeftStyle,
+    return WillPopScope(
+      onWillPop: () async {
+        dbController.getChallengeCount();
+        return true;
+      },
+      child: Scaffold(
+        backgroundColor: AppColors.dashboardBGColor,
+        appBar: CustomAppBar(
+          firstTitle: AppStrings.YOURDAILY,
+          secondTitle: AppStrings.APPLastTitle,
+          backbutton: false,
+          firstTitleColor: AppColors.blackColor,
+          secondTitleColor: AppColors.whiteColor,
+          notiButton: false,
+        ),
+        body: SingleChildScrollView(
+                padding: const EdgeInsets.only(left: 18.0, right: 18.0),
+                child: GetBuilder<DailyChallengeController>(
+                  init: DailyChallengeController(),
+                  builder: (controller) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Divider(
+                            color: AppColors.blackColor,
+                            thickness: 0.2,
                           ),
-                        ),
-                        SizedBox(height: 25),
-                        LinearPercentIndicator(
-                          width: MediaQuery.of(context).size.width / 1.3,
-                          animation: true,
-                          lineHeight: 16.0,
-                          animationDuration: 2500,
-                          percent: 0.3,
-                          barRadius: Radius.circular(28.0),
-                          backgroundColor: AppColors.whiteColor,
-                          alignment:  MainAxisAlignment.center,
-                          //center: Text("80.0%"),
-                          linearStrokeCap: LinearStrokeCap.roundAll,
-                          progressColor: AppColors.cardBorderColor,
-                        ),
-                        SizedBox(height: 12),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 50.0,right: 50.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text("02:30",
-                                  style: CustomTextStyle.timeStampStyle),
-                              Text("24:00",
-                                  style: CustomTextStyle.timeStampStyle),
-                            ],
+                          SizedBox(height: 20),
+                          ChallengeCardView(controller: dsController),
+                          SizedBox(height: 40),
+                          FittedBox(
+                            fit: BoxFit.fitWidth,
+                            child: Text(AppStrings.TIMELEFTTEXT,
+                              style: CustomTextStyle.timeLeftStyle,
+                            ),
                           ),
-                        ),
-                        SizedBox(height: 40),
-                        CustomButton(
-                          contentPadding: const EdgeInsets.only(top: 15.0,bottom:15.0 ),
-                          buttonText: "COMPLETE CHALLENGE",onTap: () {
-                            controller.addCompletedChallenge();
-                          //Get.toNamed(Routes.FEEDBACKQUESTIONVIEW);
-                        },),
-                        SizedBox(height: 20),
-                      ],
-                    );
-                }
-              ),
-            )
-           );
+                          SizedBox(height: 25),
+                          LinearPercentIndicator(
+                            width: MediaQuery.of(context).size.width / 1.3,
+                            animation: true,
+                            lineHeight: 16.0,
+                            animationDuration: 2500,
+                            percent: 0.3,
+                            barRadius: Radius.circular(28.0),
+                            backgroundColor: AppColors.whiteColor,
+                            alignment:  MainAxisAlignment.center,
+                            //center: Text("80.0%"),
+                            linearStrokeCap: LinearStrokeCap.roundAll,
+                            progressColor: AppColors.cardBorderColor,
+                          ),
+                          SizedBox(height: 12),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 50.0,right: 50.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text("02:30",
+                                    style: CustomTextStyle.timeStampStyle),
+                                Text("24:00",
+                                    style: CustomTextStyle.timeStampStyle),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 40),
+                          CustomButton(
+                            contentPadding: const EdgeInsets.only(top: 15.0,bottom:15.0 ),
+                            buttonText: "COMPLETE CHALLENGE",
+                            onTap: () {
+                              controller.updateCompletedChallenge(
+                              dsController.questionList[dsController.questionValue.value]);
+                            },
+                          ),
+                          SizedBox(height: 20),
+                        ],
+                      );
+                  }
+                ),
+              )
+             ),
+    );
           }
   }
 

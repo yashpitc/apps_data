@@ -75,7 +75,7 @@ class ChallengeCardView extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children:[
                             Html(
-                              data: controller.dailyQuestions[0][controller.questionValue.value].toString(),
+                              data: controller.questionList[controller.questionValue.value].question.toString(),
                               style: {
                                 "p": Style(
                                     fontSize: const FontSize(24.0),

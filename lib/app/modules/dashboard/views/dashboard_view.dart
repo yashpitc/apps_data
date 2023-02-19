@@ -35,73 +35,77 @@ class DashboardView extends StatelessWidget {
         child: GetBuilder<DashboardController>(
         init: DashboardController(),
           builder: (controller){
-            return Column(
-            children: [
-              Divider(
-                color: AppColors.blackColor,
-                thickness: 0.2,
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("TOTAL CHALLANAGES", style: CustomTextStyle.ChtitleStyle),
-                  Text(controller.questionList.value.length.toString(), style: CustomTextStyle.ChCountStyle),
-                ],
-              ),
-              SizedBox(height: 22),
-              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                Text("COMPLETED CHALLENGES", style: CustomTextStyle.ChtitleStyle),
-                Text(controller.completeChallengeCount.toString(), style: CustomTextStyle.ChCountStyle),
-              ]),
-              SizedBox(height: 22),
-              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                Text("LOST CHALLENGES", style: CustomTextStyle.ChtitleStyle),
-                Text(controller.lostChallengeCount.toString(), style: CustomTextStyle.ChCountStyle)
-              ]),
-              SizedBox(height: 45),
-              InkWell(
-                onTap: (){
-                  Get.toNamed(Routes.PREVIOUSCHALLENGEVIEW);
-                },
-                child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                  Text("CHALLENGE HISTORY", style: CustomTextStyle.ChtitleStyle),
-                  SvgPicture.asset(AppIcons.historyIcon, height: 28, width: 28,),
+            return Obx(() =>
+                Column(
+              children: [
+                Divider(
+                  color: AppColors.blackColor,
+                  thickness: 0.2,
+                ),
+                SizedBox(
+                  height: 15,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text("TOTAL CHALLANAGES", style: CustomTextStyle.ChtitleStyle),
+                    Text(controller.questionList.length.toString(), style: CustomTextStyle.ChCountStyle),
+                  ],
+                ),
+                SizedBox(height: 22),
+                Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                  Text("COMPLETED CHALLENGES", style: CustomTextStyle.ChtitleStyle),
+                  Text(controller.completeChallengeCount.value.toString(), style: CustomTextStyle.ChCountStyle),
                 ]),
-              ),
-              SizedBox(height: 40),
-              ChallengeCardView(controller: controller),
-              SizedBox(height: 40),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  CustomRoundButton(
-                    icon: AppIcons.continueIcon,
-                    onTap: () {
-                      Get.toNamed(Routes.DAILYCHALLENGEVIEW,arguments: controller);
-                    },
-                  ),
-                  CustomRoundButton(
-                    icon: AppIcons.refreshIcon,
-                    onTap: () {
-                      controller.getNextQuestions();
-                      //showSnackBar("Under Working...",context);
-                     //controller.getNextQuestions(controller.questionList[0]);
-                    },
-                  ),
-                  // CustomRoundButton(
-                  //   icon: AppIcons.historyIcon,
-                  //   onTap: () {
-                  //     Get.toNamed(Routes.PREVIOUSCHALLENGEVIEW);
-                  //   },
-                  // ),
-                ],
-              ),
-              SizedBox(height: 40),
-            ],
-          );
+                SizedBox(height: 22),
+                Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                  Text("LOST CHALLENGES", style: CustomTextStyle.ChtitleStyle),
+                  Text(controller.lostChallengeCount.value.toString(), style: CustomTextStyle.ChCountStyle)
+                ]),
+                SizedBox(height: 30),
+                InkWell(
+                  onTap: (){
+                    Get.toNamed(Routes.PREVIOUSCHALLENGEVIEW);
+                  },
+                  child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                    Text("CHALLENGE HISTORY", style: CustomTextStyle.ChtitleStyle),
+                    SvgPicture.asset(AppIcons.historyIcon, height: 28, width: 28,),
+                  ]),
+                ),
+                SizedBox(height: 40),
+                ChallengeCardView(controller: controller),
+                SizedBox(height: 40),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    CustomRoundButton(
+                      icon: AppIcons.continueIcon,
+                      onTap: () {
+                        controller.addCurrentChallenge(
+                            controller.questionList[controller.questionValue.value]);
+                        Get.toNamed(Routes.DAILYCHALLENGEVIEW,arguments: controller);
+                      },
+                    ),
+                    CustomRoundButton(
+                      icon: AppIcons.refreshIcon,
+                      onTap: () {
+                        controller.getNextQuestions();
+                        //showSnackBar("Under Working...",context);
+                       //controller.getNextQuestions(controller.questionList[0]);
+                      },
+                    ),
+                    // CustomRoundButton(
+                    //   icon: AppIcons.historyIcon,
+                    //   onTap: () {
+                    //     Get.toNamed(Routes.PREVIOUSCHALLENGEVIEW);
+                    //   },
+                    // ),
+                  ],
+                ),
+                SizedBox(height: 40),
+              ],
+          ),
+            );
         }
       ),
     ));
