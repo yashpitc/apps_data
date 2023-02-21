@@ -29,6 +29,20 @@ class DashboardController extends GetxController {
     super.onInit();
     fetchSubjectId();
     updateChallengeCount();
+    getCurrentChallenge();
+  }
+
+  Future getCurrentChallenge()async{
+    final SharedPreferences prefs = await _prefs;
+    var deviceId = prefs.getString('device_id');
+    try{
+      var currentChallenge = await firestoreService.db.collection('mindfullness_users').doc(deviceId).collection('my_challenges').where('type', isEqualTo: "current").get();
+      print("currentchallege------"+ currentChallenge.docs.toString());
+
+
+
+    }catch(e) {}
+
   }
 
   Future updateChallengeCount() async {

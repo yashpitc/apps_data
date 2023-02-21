@@ -32,17 +32,22 @@ class PreviousChallengeView extends StatelessWidget {
           return  SingleChildScrollView(
             padding: const EdgeInsets.only(left: 18.0, right: 18.0),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Divider(
                   color: AppColors.blackColor,
                   thickness: 0.2,
                 ),
-                ListView.builder(
-                    itemCount: controller.previousList.length,
-                    shrinkWrap: true,
-                    itemBuilder: (context,index){
-                      return CustomCardView(data: controller.previousList[index],index: index,);
-                    }),
+                Obx(() =>
+                    controller.isLoading.value?
+                    Center(child: CircularProgressIndicator(color: AppColors.cardBorderColor)):
+                    ListView.builder(
+                      itemCount: controller.previousChallengeList.length,
+                      shrinkWrap: true,
+                      itemBuilder: (context,index) {
+                        return CustomCardView(data: controller.previousChallengeList[index],index: index,);
+                      }),
+                ),
                 // CustomButton(onTap: () {},buttonText: "COMPLETE CHALLENGE",)
               ],
             ),

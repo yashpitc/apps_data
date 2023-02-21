@@ -1,11 +1,15 @@
 import 'package:AppsData/app/components/custom/custom_textstyle.dart';
 import 'package:AppsData/app/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
+
+import '../../data/models/PreviousChallengeModel.dart';
 
 class CustomCardView extends StatelessWidget {
- CustomCardView({Key? key,this.data,this.index}) : super(key: key);
-  String? data;
+ CustomCardView({Key? key,required this.data,this.index}) : super(key: key);
+  PreviousChallengeModel data;
   int? index;
+  List colors = [AppColors.pinkColor, AppColors.blueColor,AppColors.blackColor];
 
   @override
   Widget build(BuildContext context) {
@@ -27,29 +31,33 @@ class CustomCardView extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.only(left: 10.0,right: 10.0),
-                child: Text(data.toString(),
-                    textAlign: TextAlign.center,
-                    maxLines: 3,
-                    overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                  color: index == 0?
-                  AppColors.pinkColor :
-                  index ==1?
-                  AppColors.blueColor:
-                  AppColors.blackColor,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                ),
+                child: Html(
+                  data: data.question,
+                  style: {
+                    "p": Style(
+                        fontSize: const FontSize(16),
+                          fontWeight: FontWeight.w600,
+                        maxLines: 3,
+                        textOverflow: TextOverflow.ellipsis,
+                        textAlign:  TextAlign.center,
+                        color: colors[index! % colors.length],
+                    ),
+                  },
                 ),
               ),
               SizedBox(
                 height: 3,
               ),
-              Align(
-                alignment: Alignment.bottomRight,
-                child: Text("1 week ago",
-                    style: CustomTextStyle.cardTimeStyle
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(data.type.toString(),
+                      style: CustomTextStyle.cardTimeStyle
+                  ),
+                  Text("1 week ago",
+                      style: CustomTextStyle.cardTimeStyle
+                  ),
+                ],
               )
             ],
           ),

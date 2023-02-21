@@ -68,14 +68,15 @@ class DashboardView extends StatelessWidget {
                     Get.toNamed(Routes.PREVIOUSCHALLENGEVIEW);
                   },
                   child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
                     Text("CHALLENGE HISTORY", style: CustomTextStyle.ChtitleStyle),
-                    SvgPicture.asset(AppIcons.historyIcon, height: 35, width: 35,),
+                    SvgPicture.asset(AppIcons.historyIcon, height: 22, width: 22),
                   ]),
                 ),
-                SizedBox(height: 40),
+                const SizedBox(height: 40),
                 ChallengeCardView(controller: controller),
-                SizedBox(height: 40),
+                const SizedBox(height: 40),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
