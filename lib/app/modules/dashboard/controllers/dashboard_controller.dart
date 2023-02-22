@@ -121,10 +121,13 @@ class DashboardController extends GetxController {
         .then((DocumentSnapshot documentSnapshot) {
       if (documentSnapshot.exists) {
         List data = documentSnapshot.get("data");
+        //print("data------" + data.toString());
         for (var element in data) {
-          questionDataList.add(QuestionModel.fromJson(element));
+          //print("element" + element.toString());
+          addQuestions(QuestionModel.fromJson(element));
+          //questionDataList.add(QuestionModel.fromJson(element));
         }
-        addQuestions(questionDataList);
+
         update();
       } else {
         print("document not exist");
@@ -132,17 +135,42 @@ class DashboardController extends GetxController {
     });
   }
 
-  Future addQuestions(List<QuestionModel> list) async {
+  Future addQuestions(QuestionModel question) async {
+    final SharedPreferences prefs = await _prefs;
+    var deviceId = prefs.getString('device_id');
   isLoading.value = true;
   questionList.clear();
-    for (var item in list) {
-      questionList.add(item);
+  try{
+    QuerySnapshot querySnapshot = await firestoreService.db.collection('mindfullness_users').doc(deviceId).collection('my_challenges').get();
+    //List currentChallenge = querySnapshot.docs.map((doc) => doc.data()).where((element) => element["type"] != "completed").toList();
+    List currentChallenge = querySnapshot.docs.map((doc) => doc.data()).toList();
+
+    if(currentChallenge.isNotEmpty){
+      for(var item in currentChallenge.where((element) => element["type"] != "completed" )){
+        if(item["id"] == question.id){
+          questionList.add(question);
+        }
+
+        // else{
+        //   questionList.add(question);
+        // }
+      }
+      print("questionList-----" + questionList[0].question.toString());
+    }else{
+      questionList.add(question);
     }
-    // getNextQuestions();
+    print("questionList-----" + questionList.length.toString());
+    //print("question List"+ currentChallenge.where((element) => element["type"] != "completed").toString());
+
+    // for (var item in list) {
+    //   questionList.add(item);
+    // }
+    // // getNextQuestions();
     isLoading.value = false;
     //print("questionlist----" + questionList.toString());
-  }
 
+  }catch(e){}
+  }
    getNextQuestions() {
      isColorChange.value = !isColorChange.value;
      int chunkSize = 2;
