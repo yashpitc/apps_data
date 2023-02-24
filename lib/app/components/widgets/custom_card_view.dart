@@ -2,6 +2,7 @@ import 'package:AppsData/app/components/custom/custom_textstyle.dart';
 import 'package:AppsData/app/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:intl/intl.dart';
 
 import '../../data/models/PreviousChallengeModel.dart';
 
@@ -54,7 +55,7 @@ class CustomCardView extends StatelessWidget {
                   Text(data.type.toString(),
                       style: CustomTextStyle.cardTimeStyle
                   ),
-                  Text("1 week ago",
+                  Text(convertToAgo(data.completedTime.toString()),
                       style: CustomTextStyle.cardTimeStyle
                   ),
                 ],
@@ -65,5 +66,24 @@ class CustomCardView extends StatelessWidget {
       ),
     );
   }
+
+ String convertToAgo(String dateTime) {
+   DateTime input =
+   DateFormat("MMMM, dd, yyyy,hh:mm:ss a").parse(dateTime, true);
+   Duration diff = DateTime.now().difference(input);
+
+   if (diff.inDays >= 1) {
+     return '${diff.inDays} day${diff.inDays == 1 ? '' : 's'} ago';
+   } else if (diff.inHours >= 1) {
+     return '${diff.inHours} hour${diff.inHours == 1 ? '' : 's'} ago';
+   } else if (diff.inMinutes >= 1) {
+     return '${diff.inMinutes} minute${diff.inMinutes == 1 ? '' : 's'} ago';
+   } else if (diff.inSeconds >= 1) {
+     return '${diff.inSeconds} second${diff.inSeconds == 1 ? '' : 's'} ago';
+   } else {
+     return 'just now';
+   }
+ }
+
 }
 
