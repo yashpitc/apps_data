@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'app/services/firebase_service.dart';
+import 'app/services/push_notification.dart';
 
 // initializeFirebase() async {
 //   await Firebase.initializeApp();
@@ -23,6 +24,7 @@ Future<void> main() async {
   await runZonedGuarded(() async {
     WidgetsFlutterBinding.ensureInitialized();
     await Firebase.initializeApp();
+   //PushNotification().init();
     FirestoreService firestoreService = FirestoreService();
     firestoreService.registerDevice();
     FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;

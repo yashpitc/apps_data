@@ -5,16 +5,18 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../data/models/PreviousChallengeModel.dart';
 import '../../../data/models/QuestionModel.dart';
 import '../../../data/models/SubjectModel.dart';
 import '../../../routes/app_pages.dart';
 
 class DashboardController extends GetxController {
+  //final dbController = Get.put(DashboardController());
   FirestoreService firestoreService = FirestoreService();
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   List subjectList = [];
   List<QuestionModel> questionDataList = [];
-  List<QuestionModel> questionList = [];
+  var userQuestionList = <QuestionModel>[].obs;
   var completedChallenges = 0;
   var lostChallenges = 0;
   var isLoading = false.obs;
@@ -23,26 +25,30 @@ class DashboardController extends GetxController {
   var questionValue = 0.obs;
   var completeChallengeCount = 0.obs;
   var lostChallengeCount = 0.obs;
+  var totalChallengeCount = 0.obs;
 
   @override
   void onInit() {
     super.onInit();
-    fetchSubjectId();
-    updateChallengeCount();
-    getCurrentChallenge();
+    checkCurrentChallenge();
   }
 
-  Future getCurrentChallenge()async{
+  Future checkCurrentChallenge() async {
     final SharedPreferences prefs = await _prefs;
     var deviceId = prefs.getString('device_id');
+    isLoading.value = true;
     try{
-      var currentChallenge = await firestoreService.db.collection('mindfullness_users').doc(deviceId).collection('my_challenges').where('type', isEqualTo: "current").get();
-      print("currentchallege------"+ currentChallenge.docs.toString());
-
-
-
+      QuerySnapshot querySnapshot = await firestoreService.db.collection('mindfullness_users').doc(deviceId).collection('my_challenges').where('type', isEqualTo: "current").get();
+      List currentChallenge = querySnapshot.docs.map((doc) => doc.data()).toList();
+      if(currentChallenge.isNotEmpty){
+        userQuestionList.value.add(QuestionModel.fromJson(currentChallenge[0]));
+        isLoading.value = false;
+        Get.offAndToNamed(Routes.DAILYCHALLENGEVIEW,arguments: this);
+      } else{
+        updateChallengeCount();
+        fetchSubjectId();
+      }
     }catch(e) {}
-
   }
 
   Future updateChallengeCount() async {
@@ -58,6 +64,7 @@ class DashboardController extends GetxController {
       Map<String, dynamic> data = await firestoreService.db.collection('mindfullness_users').doc(deviceId).get().then((value) => value.data()) as Map<String, dynamic>;
       completeChallengeCount.value = data['completed_challenges_count'];
       lostChallengeCount.value = data["lost_challenges_count"];
+      update();
     }catch(e) {}
   }
 
@@ -97,7 +104,6 @@ class DashboardController extends GetxController {
           Map<String, dynamic> documentData = documentSnapshot.data() as Map<String, dynamic>;
           subjectList.add(documentData);
           for (var item in subjectList.where((element) => element["subject_enable"] == true)) {
-           // var index = item["index"];
             getQuestions(item["subject_id"]);
           }
           update();
@@ -121,13 +127,12 @@ class DashboardController extends GetxController {
         .then((DocumentSnapshot documentSnapshot) {
       if (documentSnapshot.exists) {
         List data = documentSnapshot.get("data");
-        //print("data------" + data.toString());
         for (var element in data) {
-          //print("element" + element.toString());
+          questionDataList.add(QuestionModel.fromJson(element));
           addQuestions(QuestionModel.fromJson(element));
-          //questionDataList.add(QuestionModel.fromJson(element));
         }
-
+        totalChallengeCount.value = questionDataList.length;
+      //addQuestions(questionDataList);
         update();
       } else {
         print("document not exist");
@@ -135,48 +140,56 @@ class DashboardController extends GetxController {
     });
   }
 
-  Future addQuestions(QuestionModel question) async {
+  Future addQuestions(QuestionModel allQuestionList) async {
     final SharedPreferences prefs = await _prefs;
     var deviceId = prefs.getString('device_id');
-  isLoading.value = true;
-  questionList.clear();
+    isLoading.value = true;
+    userQuestionList.value.clear();
   try{
     QuerySnapshot querySnapshot = await firestoreService.db.collection('mindfullness_users').doc(deviceId).collection('my_challenges').get();
-    //List currentChallenge = querySnapshot.docs.map((doc) => doc.data()).where((element) => element["type"] != "completed").toList();
     List currentChallenge = querySnapshot.docs.map((doc) => doc.data()).toList();
-
-    if(currentChallenge.isNotEmpty){
-      for(var item in currentChallenge.where((element) => element["type"] != "completed" )){
-        if(item["id"] == question.id){
-          questionList.add(question);
+      // print("currentchallanges  $currentChallenge");
+    if(currentChallenge.isNotEmpty) {
+       // for(var item in currentChallenge) {
+       //   bool exist = allQuestionList.asMap().containsValue(item["id"]);
+       //   print("exist----" + exist.toString());
+       //    // if(allQuestionList.contains("id")){
+       //    //   print("contains"+ item["id"]);
+       //      //userQuestionList.value.add(item);
+       //    // }else{
+       //    //  print("not contains"+ item["id"]);
+       //    // }
+       // }
+      // print("userQuestionList++++"+ userQuestionList.toString());
+      for(var item in currentChallenge) {
+        // print("question Id " + question.id.toString());
+        // print("use completed Id " + item.toString());
+        // print("item type${item["type"]}");
+        // print("item type ${item["type"].runtimeType}");
+        if ( item["id"] == allQuestionList.id) {
+          userQuestionList.value.add(allQuestionList);
+          // questionList.value.removeWhere((element) => element.questionType == "completed");
+          print("not completed statement" + userQuestionList.toString());
         }
-
-        // else{
-        //   questionList.add(question);
-        // }
       }
-      print("questionList-----" + questionList[0].question.toString());
-    }else{
-      questionList.add(question);
+      // }
+      update();
+    }else {
+      print("else part");
+     // questionList.add(question);
+      print("questionList2-----$userQuestionList");
     }
-    print("questionList-----" + questionList.length.toString());
-    //print("question List"+ currentChallenge.where((element) => element["type"] != "completed").toString());
-
-    // for (var item in list) {
-    //   questionList.add(item);
-    // }
-    // // getNextQuestions();
     isLoading.value = false;
-    //print("questionlist----" + questionList.toString());
-
   }catch(e){}
   }
+
+
    getNextQuestions() {
      isColorChange.value = !isColorChange.value;
      int chunkSize = 2;
      dailyQuestions.clear();
-     for (var i = 0; i < questionList.length; i += chunkSize) {
-       dailyQuestions.add(questionList.sublist(i, i+chunkSize > questionList.length ? questionList.length : i + chunkSize));
+     for (var i = 0; i < userQuestionList.length; i += chunkSize) {
+       dailyQuestions.add(userQuestionList.sublist(i, i+chunkSize > userQuestionList.length ? userQuestionList.length : i + chunkSize));
      }
     questionValue.value =  (questionValue.value == 0 ? 1 : 0);
     // print("question value ${dailyQuestions.value[0][questionValue.value]}");

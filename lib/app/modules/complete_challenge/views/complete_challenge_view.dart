@@ -25,7 +25,7 @@ class CompleteChallengeView extends StatelessWidget {
                 buttonText: "TAKE NEW CHALLENGE",
                 contentPadding: const EdgeInsets.only(top: 15.0,bottom:15.0 ),
                 onTap: () {
-                  dbController.updateChallengeCount();
+                  dbController.onInit();
                   Get.toNamed(Routes.DASHBOARDVIEW);
                 }),
             const Spacer(),

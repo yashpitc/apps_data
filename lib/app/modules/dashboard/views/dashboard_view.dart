@@ -49,7 +49,7 @@ class DashboardView extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text("TOTAL CHALLANAGES", style: CustomTextStyle.ChtitleStyle),
-                    Text(controller.questionList.length.toString(), style: CustomTextStyle.ChCountStyle),
+                    Text(controller.totalChallengeCount.value.toString(), style: CustomTextStyle.ChCountStyle),
                   ],
                 ),
                 SizedBox(height: 22),
@@ -84,8 +84,10 @@ class DashboardView extends StatelessWidget {
                       icon: AppIcons.continueIcon,
                       onTap: () {
                         controller.addCurrentChallenge(
-                            controller.questionList[controller.questionValue.value]);
-                        Get.toNamed(Routes.DAILYCHALLENGEVIEW,arguments: controller);
+                          controller.userQuestionList.length == 1?
+                          controller.userQuestionList[0]:
+                            controller.userQuestionList[controller.questionValue.value]);
+                        Get.offAndToNamed(Routes.DAILYCHALLENGEVIEW,arguments: controller);
                       },
                     ),
                     CustomRoundButton(

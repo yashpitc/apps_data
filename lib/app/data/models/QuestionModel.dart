@@ -11,8 +11,9 @@ class QuestionModel {
       this.question, 
       this.questionType, 
       this.isHard, 
-      this.isImage, 
-      this.id, 
+      this.isImage,
+      this.startTime,
+      this.id,
       this.timestamp,});
 
   QuestionModel.fromJson(dynamic json) {
@@ -26,6 +27,7 @@ class QuestionModel {
     questionType = json['question_type'];
     isHard = json['is_hard'];
     isImage = json['is_image'];
+    startTime = json['start_time'];
     id = json['id'];
     timestamp = json['timestamp'];
   }
@@ -39,6 +41,7 @@ class QuestionModel {
   String? questionType;
   bool? isHard;
   bool? isImage;
+  String? startTime;
   String? id;
   Timestamp? timestamp;
 
@@ -54,6 +57,7 @@ class QuestionModel {
     map['question_type'] = questionType;
     map['is_hard'] = isHard;
     map['is_image'] = isImage;
+    map['start_time'] = startTime;
     map['id'] = id;
     map['timestamp'] = timestamp;
     return map;
