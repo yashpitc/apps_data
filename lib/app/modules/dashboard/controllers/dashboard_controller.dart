@@ -64,6 +64,10 @@ class DashboardController extends GetxController {
       Map<String, dynamic> data = await firestoreService.db.collection('mindfullness_users').doc(deviceId).get().then((value) => value.data()) as Map<String, dynamic>;
       completeChallengeCount.value = data['completed_challenges_count'];
       lostChallengeCount.value = data["lost_challenges_count"];
+      if(prefs.containsKey('total_challenges')){
+        totalChallengeCount.value = prefs.getInt('total_challenges')!;
+        print("if condition" +  totalChallengeCount.value.toString());
+      }
       update();
     }catch(e) {}
   }
@@ -118,6 +122,7 @@ class DashboardController extends GetxController {
 
   Future getQuestions(String subjectId) async {
     isLoading.value = true;
+    questionDataList.clear();
     await firestoreService.db
         .collection("subject")
         .doc(subjectId)
@@ -131,14 +136,20 @@ class DashboardController extends GetxController {
           questionDataList.add(QuestionModel.fromJson(element));
           addQuestions(QuestionModel.fromJson(element));
         }
-        totalChallengeCount.value = questionDataList.length;
-      //addQuestions(questionDataList);
+        setTotalChallengeCount(questionDataList);
+         //addQuestions(questionDataList);
         update();
       } else {
         print("document not exist");
       }
     });
   }
+
+  Future setTotalChallengeCount(List<QuestionModel> questionDataList) async {
+    final SharedPreferences prefs = await _prefs;
+    prefs.setInt("total_challenges", questionDataList.length);
+  }
+
 
   Future addQuestions(QuestionModel allQuestionList) async {
     final SharedPreferences prefs = await _prefs;
