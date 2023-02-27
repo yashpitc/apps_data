@@ -88,7 +88,7 @@ class ChallengeCardView extends StatelessWidget {
                                 ),
                               },
                             ),
-                      ]
+                       ]
                     ),
                   ),
             ),

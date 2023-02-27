@@ -4,14 +4,10 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../../../data/models/PreviousChallengeModel.dart';
 import '../../../data/models/QuestionModel.dart';
-import '../../../data/models/SubjectModel.dart';
 import '../../../routes/app_pages.dart';
 
 class DashboardController extends GetxController {
-  //final dbController = Get.put(DashboardController());
   FirestoreService firestoreService = FirestoreService();
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   List subjectList = [];
@@ -64,10 +60,7 @@ class DashboardController extends GetxController {
       Map<String, dynamic> data = await firestoreService.db.collection('mindfullness_users').doc(deviceId).get().then((value) => value.data()) as Map<String, dynamic>;
       completeChallengeCount.value = data['completed_challenges_count'];
       lostChallengeCount.value = data["lost_challenges_count"];
-      if(prefs.containsKey('total_challenges')){
-        totalChallengeCount.value = prefs.getInt('total_challenges')!;
-        print("if condition" +  totalChallengeCount.value.toString());
-      }
+
       update();
     }catch(e) {}
   }
@@ -134,10 +127,11 @@ class DashboardController extends GetxController {
         List data = documentSnapshot.get("data");
         for (var element in data) {
           questionDataList.add(QuestionModel.fromJson(element));
-          addQuestions(QuestionModel.fromJson(element));
         }
-        setTotalChallengeCount(questionDataList);
-         //addQuestions(questionDataList);
+        print("questionDataList" + questionDataList.toString());
+        totalChallengeCount.value = questionDataList.length;
+        addQuestions(questionDataList);
+        //setTotalChallengeCount(questionDataList);
         update();
       } else {
         print("document not exist");
@@ -147,11 +141,16 @@ class DashboardController extends GetxController {
 
   Future setTotalChallengeCount(List<QuestionModel> questionDataList) async {
     final SharedPreferences prefs = await _prefs;
-    prefs.setInt("total_challenges", questionDataList.length);
+    if(prefs.containsKey('total_challenges')){
+      totalChallengeCount.value = prefs.getInt('total_challenges')!;
+    } else {
+      prefs.setInt("total_challenges", questionDataList.length);
+      totalChallengeCount.value = prefs.getInt('total_challenges')!;
+    }
   }
 
 
-  Future addQuestions(QuestionModel allQuestionList) async {
+  Future addQuestions(List<QuestionModel> allQuestionList) async {
     final SharedPreferences prefs = await _prefs;
     var deviceId = prefs.getString('device_id');
     isLoading.value = true;
@@ -159,36 +158,18 @@ class DashboardController extends GetxController {
   try{
     QuerySnapshot querySnapshot = await firestoreService.db.collection('mindfullness_users').doc(deviceId).collection('my_challenges').get();
     List currentChallenge = querySnapshot.docs.map((doc) => doc.data()).toList();
-      // print("currentchallanges  $currentChallenge");
     if(currentChallenge.isNotEmpty) {
-       // for(var item in currentChallenge) {
-       //   bool exist = allQuestionList.asMap().containsValue(item["id"]);
-       //   print("exist----" + exist.toString());
-       //    // if(allQuestionList.contains("id")){
-       //    //   print("contains"+ item["id"]);
-       //      //userQuestionList.value.add(item);
-       //    // }else{
-       //    //  print("not contains"+ item["id"]);
-       //    // }
-       // }
-      // print("userQuestionList++++"+ userQuestionList.toString());
-      for(var item in currentChallenge) {
-        // print("question Id " + question.id.toString());
-        // print("use completed Id " + item.toString());
-        // print("item type${item["type"]}");
-        // print("item type ${item["type"].runtimeType}");
-        if ( item["id"] == allQuestionList.id) {
-          userQuestionList.value.add(allQuestionList);
-          // questionList.value.removeWhere((element) => element.questionType == "completed");
-          print("not completed statement" + userQuestionList.toString());
+      for(var item in allQuestionList){
+        var isItemContains = currentChallenge.firstWhere((element) => (item.id == element["id"]),orElse: ()=> false);
+        if(isItemContains == false){
+          userQuestionList.add(item);
         }
       }
-      // }
       update();
     }else {
-      print("else part");
-     // questionList.add(question);
-      print("questionList2-----$userQuestionList");
+      for(var item in allQuestionList){
+        userQuestionList.add(item);
+      }
     }
     isLoading.value = false;
   }catch(e){}
@@ -203,7 +184,6 @@ class DashboardController extends GetxController {
        dailyQuestions.add(userQuestionList.sublist(i, i+chunkSize > userQuestionList.length ? userQuestionList.length : i + chunkSize));
      }
     questionValue.value =  (questionValue.value == 0 ? 1 : 0);
-    // print("question value ${dailyQuestions.value[0][questionValue.value]}");
     }
 
    Future getChallengeCount() async {

@@ -19,6 +19,7 @@ class DailyChallengeController extends GetxController {
   String challengeStartTime = "";
   var challengeLeftTime = "00:00".obs;
   var challengeLeftPercentage = 0.0.obs;
+  String currentChallengeId = "";
 
   @override
   void onInit() async {
@@ -50,6 +51,29 @@ class DailyChallengeController extends GetxController {
     }).catchError((error) => print('Add failed: $error'));
   }
 
+
+  Future updateLostChallenge(String questionId) async {
+    final SharedPreferences prefs = await _prefs;
+    var currentDateTime =
+    DateFormat("MMMM, dd, yyyy,hh:mm:ss a").format(DateTime.now());
+    deviceID = prefs.getString('device_id');
+    await firestoreService.db
+        .collection('mindfullness_users')
+        .doc(deviceID)
+        .collection("my_challenges")
+        .doc(questionId)
+        .update({'completed_time': currentDateTime, 'type': 'lost'}).then(
+            (document) {
+          Fluttertoast.showToast(
+            msg: "oops! You have lost your Challenge",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+          );
+          Get.offAndToNamed(Routes.FEEDBACKQUESTIONVIEW);
+        }).catchError((error) => print('Add failed: $error'));
+  }
+
   Future getRemainingTime() async {
     final SharedPreferences prefs = await _prefs;
     var deviceId = prefs.getString('device_id');
@@ -63,8 +87,13 @@ class DailyChallengeController extends GetxController {
       List currentChallenge = querySnapshot.docs.map((doc) => doc.data()).toList();
       if (currentChallenge.isNotEmpty) {
           challengeStartTime = currentChallenge[0]["start_time"];
+          currentChallengeId =  currentChallenge[0]["id"];
           challengeLeftTime.value = checkChallengeLeftTime(challengeStartTime);
           challengeLeftPercentage.value = getPercentageFromTime(challengeLeftTime.value);
+           if(challengeLeftTime.value == "24:00"){
+            await Future.delayed(const Duration(seconds: 3));
+            updateLostChallenge(currentChallengeId);
+          }
       }else{
         challengeLeftTime.value = "00:00";
         challengeLeftPercentage.value = 00.00;
@@ -119,31 +148,4 @@ class DailyChallengeController extends GetxController {
     return percentage;
   }
 
-
-  /* Future addCurrentChallenge(QuestionModel data) async {
-    final SharedPreferences prefs = await _prefs;
-    var questionid = data.id;
-    var question = data.question;
-    var curentDateTime = DateFormat("MMMM, dd, yyyy,hh:mm:ss a").format(DateTime.now());
-    deviceID = prefs.getString('device_id');
-    await firestoreService.db
-        .collection('mindfullness_users')
-        .doc(deviceID)
-        .collection("my_challenges")
-        .doc(questionid)
-        .set({
-      'completed_time': '',
-      'id': questionid,
-      'start_time': curentDateTime,
-      'question': question,
-      'type': 'current'
-    }).then((document) {
-      Fluttertoast.showToast(
-        msg: "Challenge Started",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        timeInSecForIosWeb: 1,
-      );
-    }).catchError((error) => print('Add failed: $error'));
-  }*/
 }

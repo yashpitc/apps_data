@@ -65,7 +65,6 @@ class DailyChallengeView extends StatelessWidget {
                               barRadius: Radius.circular(28.0),
                               backgroundColor: AppColors.whiteColor,
                               alignment:  MainAxisAlignment.center,
-                              //center: Text("80.0%"),
                               linearStrokeCap: LinearStrokeCap.roundAll,
                               progressColor: AppColors.cardBorderColor,
                             ),
