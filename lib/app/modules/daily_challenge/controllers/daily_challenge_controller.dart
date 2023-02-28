@@ -19,6 +19,7 @@ class DailyChallengeController extends GetxController {
   String challengeStartTime = "";
   var challengeLeftTime = "00:00".obs;
   var challengeLeftPercentage = 0.0.obs;
+  var challengeLeftHours = 0.obs;
   String currentChallengeId = "";
 
   @override
@@ -88,12 +89,17 @@ class DailyChallengeController extends GetxController {
       if (currentChallenge.isNotEmpty) {
           challengeStartTime = currentChallenge[0]["start_time"];
           currentChallengeId =  currentChallenge[0]["id"];
-          challengeLeftTime.value = checkChallengeLeftTime(challengeStartTime);
-          challengeLeftPercentage.value = getPercentageFromTime(challengeLeftTime.value);
-           if(challengeLeftTime.value == "24:00"){
+          challengeLeftHours.value = timeCalculator(challengeStartTime);
+          print("challengeLeftHours--${challengeLeftHours.value}");
+           if(challengeLeftHours.value >= 24){
+             challengeLeftTime.value = "24:00";
+             challengeLeftPercentage.value = 1.0;
             await Future.delayed(const Duration(seconds: 3));
             updateLostChallenge(currentChallengeId);
-          }
+           }else{
+             challengeLeftTime.value = checkChallengeLeftTime(challengeStartTime);
+             challengeLeftPercentage.value = getPercentageFromTime(challengeLeftTime.value);
+           }
       }else{
         challengeLeftTime.value = "00:00";
         challengeLeftPercentage.value = 00.00;
@@ -118,13 +124,41 @@ class DailyChallengeController extends GetxController {
     return timeSpentStr;
   }
 
-  void timeCalculator(String startTime) {
+  String checkChallengeFullTime(String startTime) {
+    final now = DateTime.now();
+    DateFormat formatter = DateFormat("MMMM, dd, yyyy,hh:mm:ss a");
+    DateTime dateTime = formatter.parse(startTime);
+    int endDay = dateTime.day;
+    int endDayHour = dateTime.hour;
+    int endDayMinute = dateTime.minute;
+    int endDaySecond = dateTime.second;
+    final endOfToday = DateTime(now.year, now.month, endDay + 1, endDayHour, endDayMinute);
+    final spendTime = now.subtract(Duration(hours: endDayHour, minutes: endDayMinute)).toString();
+    final spendTimeUtc = now.subtract(Duration(hours: endDayHour, minutes: endDayMinute)).toUtc();
+    String timeSpentStr = spendTime.toString();
+    return timeSpentStr;
+  }
+
+  String checkChallengeCompleteTime(String startTime) {
+    final now = DateTime.now();
+    DateFormat formatter = DateFormat("MMMM, dd, yyyy,hh:mm:ss a");
+    DateTime dateTime = formatter.parse(startTime);
+    int endDay = dateTime.day;
+    int endDayHour = dateTime.hour;
+    int endDayMinute = dateTime.minute;
+    int endDaySecond = dateTime.second;
+    final endOfToday = DateTime(now.year, now.month, endDay + 1, endDayHour, endDayMinute);
+    return endOfToday.toString();
+  }
+
+  int timeCalculator(String startTime) {
     DateFormat formatter = DateFormat("MMMM, dd, yyyy,hh:mm:ss a");
     DateTime dateTime = formatter.parse(startTime);
     final now = DateTime.now().toUtc();
-    final difference = now.difference(dateTime);
-    print(">>>>>>>>>>>>>>>>RunningTime ${hoursCalculator(difference.inMinutes)}");
-    print(">>>>>>>>>>>>>>>>RemainingTime ${hoursCalculator(1440 - difference.inMinutes)}");
+    final difference = now.difference(dateTime).inHours;
+    // print(">>>>>>>>>>>>>>>>RunningTime ${hoursCalculator(difference.inMinutes)}");
+    // print(">>>>>>>>>>>>>>>>RemainingTime ${hoursCalculator(1440 - difference.inMinutes)}");
+    return difference;
   }
 
   String hoursCalculator(int min) {

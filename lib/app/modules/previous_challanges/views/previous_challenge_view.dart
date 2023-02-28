@@ -30,7 +30,7 @@ class PreviousChallengeView extends StatelessWidget {
         init: PreviousChallengeController(),
         builder: (controller){
           return  SingleChildScrollView(
-            padding: const EdgeInsets.only(left: 18.0, right: 18.0),
+            padding: const EdgeInsets.only(left: 18.0, right: 18.0,bottom: 20.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -43,6 +43,7 @@ class PreviousChallengeView extends StatelessWidget {
                     Center(child: CircularProgressIndicator(color: AppColors.cardBorderColor)):
                     ListView.builder(
                       itemCount: controller.previousChallengeList.length,
+                      physics: NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemBuilder: (context,index) {
                         return CustomCardView(data: controller.previousChallengeList[index],index: index,);

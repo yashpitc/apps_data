@@ -128,7 +128,7 @@ class DashboardController extends GetxController {
         for (var element in data) {
           questionDataList.add(QuestionModel.fromJson(element));
         }
-        print("questionDataList" + questionDataList.toString());
+        // print("questionDataList" + questionDataList.toString());
         totalChallengeCount.value = questionDataList.length;
         addQuestions(questionDataList);
         //setTotalChallengeCount(questionDataList);
