@@ -90,7 +90,6 @@ class DailyChallengeController extends GetxController {
           challengeStartTime = currentChallenge[0]["start_time"];
           currentChallengeId =  currentChallenge[0]["id"];
           challengeLeftHours.value = timeCalculator(challengeStartTime);
-          print("challengeLeftHours--${challengeLeftHours.value}");
            if(challengeLeftHours.value >= 24){
              challengeLeftTime.value = "24:00";
              challengeLeftPercentage.value = 1.0;

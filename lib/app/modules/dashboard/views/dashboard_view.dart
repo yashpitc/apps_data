@@ -63,8 +63,8 @@ class DashboardView extends StatelessWidget {
                   Text(controller.lostChallengeCount.value.toString(), style: CustomTextStyle.ChCountStyle)
                 ]),
                 SizedBox(height: 30),
-                GestureDetector(
-                  onTap: (){
+                InkWell(
+                  onTap: () {
                     Get.toNamed(Routes.PREVIOUSCHALLENGEVIEW);
                   },
                   child: Row(
@@ -83,12 +83,20 @@ class DashboardView extends StatelessWidget {
                     CustomRoundButton(
                       icon: AppIcons.continueIcon,
                       onTap: () {
-                        controller.addCurrentChallenge(
-                          controller.userQuestionList.length == 1?
-                          controller.userQuestionList[0]:
-                            controller.userQuestionList[controller.questionValue.value]);
-                        Get.offAndToNamed(Routes.DAILYCHALLENGEVIEW,arguments: controller);
-                      },
+                        if (controller.userQuestionList.isEmpty) {
+                          showSnackBar(
+                              "Your Today's Challenge Completed, Come back Tomorrow.",
+                              context);
+                        } else {
+                          controller.addCurrentChallenge(
+                              controller.userQuestionList.length == 1 ?
+                              controller.userQuestionList[0] :
+                              controller.userQuestionList[controller
+                                  .questionValue.value]);
+                          Get.offAndToNamed(
+                              Routes.DAILYCHALLENGEVIEW, arguments: controller);
+                        }
+                      }
                     ),
                     CustomRoundButton(
                       icon: AppIcons.refreshIcon,
@@ -98,12 +106,6 @@ class DashboardView extends StatelessWidget {
                        //controller.getNextQuestions(controller.questionList[0]);
                       },
                     ),
-                    // CustomRoundButton(
-                    //   icon: AppIcons.historyIcon,
-                    //   onTap: () {
-                    //     Get.toNamed(Routes.PREVIOUSCHALLENGEVIEW);
-                    //   },
-                    // ),
                   ],
                 ),
                 SizedBox(height: 40),

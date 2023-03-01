@@ -29,6 +29,8 @@ class DashboardController extends GetxController {
     checkCurrentChallenge();
   }
 
+
+
   Future checkCurrentChallenge() async {
     final SharedPreferences prefs = await _prefs;
     var deviceId = prefs.getString('device_id');
@@ -145,6 +147,7 @@ class DashboardController extends GetxController {
       totalChallengeCount.value = prefs.getInt('total_challenges')!;
     } else {
       prefs.setInt("total_challenges", questionDataList.length);
+
       totalChallengeCount.value = prefs.getInt('total_challenges')!;
     }
   }
@@ -159,12 +162,23 @@ class DashboardController extends GetxController {
     QuerySnapshot querySnapshot = await firestoreService.db.collection('mindfullness_users').doc(deviceId).collection('my_challenges').get();
     List currentChallenge = querySnapshot.docs.map((doc) => doc.data()).toList();
     if(currentChallenge.isNotEmpty) {
-      for(var item in allQuestionList){
-        var isItemContains = currentChallenge.firstWhere((element) => (item.id == element["id"]),orElse: ()=> false);
-        if(isItemContains == false){
-          userQuestionList.add(item);
+      var currentDate = DateFormat('MMMM, dd, yyyy,').format(DateTime.now());
+
+      var completedList = currentChallenge.where((element) => element["type"]=="completed" && element["completed_time"].toString().substring(0, element["completed_time"].length - 11) == currentDate).toList();
+      //print("completedList length---" + completedList.length.toString());
+      if(completedList.length == 2) {
+        userQuestionList.clear();
+      }else{
+        for (var item in allQuestionList) {
+          var isItemContains = currentChallenge.firstWhere((element) =>
+          (item.id == element["id"]), orElse: () => false);
+          if (isItemContains == false) {
+            userQuestionList.add(item);
+          }
         }
       }
+
+
       update();
     }else {
       for(var item in allQuestionList){

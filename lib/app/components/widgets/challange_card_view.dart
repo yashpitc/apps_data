@@ -77,7 +77,7 @@ class ChallengeCardView extends StatelessWidget {
                             Html(
                               data:
                               controller.userQuestionList.isEmpty?
-                              "<p>You have Completed all the Challenges</p>":
+                              "<p>You have Completed today's Challenges</p>":
                               controller.userQuestionList.value.length == 1?
                               controller.userQuestionList.value[0].question :
                               controller.userQuestionList.value[controller.questionValue.value].question.toString(),
