@@ -69,9 +69,8 @@ class CustomCardView extends StatelessWidget {
 
  String convertToAgo(String dateTime) {
    DateTime input =
-   DateFormat("MMMM, dd, yyyy,hh:mm:ss a").parse(dateTime, true);
+   DateFormat("MMMM, dd, yyyy,hh:mm:ss a").parse(dateTime);
    Duration diff = DateTime.now().difference(input);
-
    if (diff.inDays >= 1) {
      return '${diff.inDays} day${diff.inDays == 1 ? '' : 's'} ago';
    } else if (diff.inHours >= 1) {

@@ -5,6 +5,7 @@ import 'package:AppsData/app/modules/previous_challanges/controllers/previous_ch
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../components/custom/custom_textstyle.dart';
 import '../../../components/widgets/custom_card_view.dart';
 import '../../../routes/app_pages.dart';
 
@@ -29,28 +30,41 @@ class PreviousChallengeView extends StatelessWidget {
       body: GetBuilder<PreviousChallengeController>(
         init: PreviousChallengeController(),
         builder: (controller){
-          return  SingleChildScrollView(
-            padding: const EdgeInsets.only(left: 18.0, right: 18.0,bottom: 20.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Divider(
-                  color: AppColors.blackColor,
-                  thickness: 0.2,
-                ),
-                Obx(() =>
-                    controller.isLoading.value?
-                    Center(child: CircularProgressIndicator(color: AppColors.cardBorderColor)):
-                    ListView.builder(
-                      itemCount: controller.previousChallengeList.length,
-                      physics: NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemBuilder: (context,index) {
-                        return CustomCardView(data: controller.previousChallengeList[index],index: index,);
-                      }),
-                ),
-                // CustomButton(onTap: () {},buttonText: "COMPLETE CHALLENGE",)
-              ],
+          return  RefreshIndicator(
+            color: AppColors.textFieldBorderColor,
+            onRefresh: () async {
+                controller.onInit();
+            },
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.only(left: 18.0, right: 18.0,bottom: 20.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Divider(
+                    color: AppColors.blackColor,
+                    thickness: 0.2,
+                  ),
+                  Obx(() =>
+                      controller.isLoading.value?
+                      Center(child: CircularProgressIndicator(color: AppColors.cardBorderColor)):
+                          controller.previousChallengeList.isEmpty?
+                              Center(
+                                child: Text(
+                                  "No Previous Challenge Available",
+                                  style:  CustomTextStyle.ChtitleStyle,
+                                ),
+                              ):
+                      ListView.builder(
+                        itemCount: controller.previousChallengeList.length,
+                        physics: NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemBuilder: (context,index) {
+                          return CustomCardView(data: controller.previousChallengeList[index],index: index,);
+                        }),
+                  ),
+                  // CustomButton(onTap: () {},buttonText: "COMPLETE CHALLENGE",)
+                ],
+              ),
             ),
           );
         }

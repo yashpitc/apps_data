@@ -37,17 +37,28 @@ class NotificationView extends StatelessWidget {
                   const SizedBox(
                     height: 10,
                   ),
-                  Text(
-                    "LAST 30 DAYS",
-                    style: CustomTextStyle.historyTitleStyle,
+                  // Text(
+                  //   "LAST 30 DAYS",
+                  //   style: CustomTextStyle.historyTitleStyle,
+                  // ),
+                  Column(
+                    children: [
+                      controller.notificationList.isEmpty?
+                          Center(
+                            child: Text(
+                              "No Notifications",
+                              style:  CustomTextStyle.ChtitleStyle,
+                            ),
+                          ) :
+                      ListView.builder(
+                          itemCount: controller.notificationList.length,
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) {
+                            return notificationCardView(
+                                context, controller.notificationList[index]);
+                          }),
+                    ],
                   ),
-                  ListView.builder(
-                      itemCount: controller.notificationList.length,
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) {
-                        return notificationCardView(
-                            context, controller.notificationList[index]);
-                      }),
                 ],
               ),
             );

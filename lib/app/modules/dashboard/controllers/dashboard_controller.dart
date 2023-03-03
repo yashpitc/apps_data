@@ -22,6 +22,7 @@ class DashboardController extends GetxController {
   var completeChallengeCount = 0.obs;
   var lostChallengeCount = 0.obs;
   var totalChallengeCount = 0.obs;
+  var currentChallengeList = [].obs;
 
   @override
   void onInit() {
@@ -163,12 +164,12 @@ class DashboardController extends GetxController {
     List currentChallenge = querySnapshot.docs.map((doc) => doc.data()).toList();
     if(currentChallenge.isNotEmpty) {
       var currentDate = DateFormat('MMMM, dd, yyyy,').format(DateTime.now());
-
-      var completedList = currentChallenge.where((element) => element["type"]=="completed" && element["completed_time"].toString().substring(0, element["completed_time"].length - 11) == currentDate).toList();
-      //print("completedList length---" + completedList.length.toString());
-      if(completedList.length == 2) {
+      currentChallengeList.value = currentChallenge.where((element) => element["type"]=="completed" && element["completed_time"].toString().substring(0, element["completed_time"].length - 11) == currentDate).toList();
+     // print("completedList length---" + currentChallengeList.value.length.toString());
+      if(currentChallengeList.value.length == 2) {
         userQuestionList.clear();
-      }else{
+      }
+      else{
         for (var item in allQuestionList) {
           var isItemContains = currentChallenge.firstWhere((element) =>
           (item.id == element["id"]), orElse: () => false);
@@ -177,8 +178,6 @@ class DashboardController extends GetxController {
           }
         }
       }
-
-
       update();
     }else {
       for(var item in allQuestionList){
@@ -197,7 +196,7 @@ class DashboardController extends GetxController {
      for (var i = 0; i < userQuestionList.length; i += chunkSize) {
        dailyQuestions.add(userQuestionList.sublist(i, i+chunkSize > userQuestionList.length ? userQuestionList.length : i + chunkSize));
      }
-    questionValue.value =  (questionValue.value == 0 ? 1 : 0);
+       questionValue.value =  currentChallengeList.value.length == 1 ? 0 : (questionValue.value == 0 ? 1 : 0);
     }
 
    Future getChallengeCount() async {

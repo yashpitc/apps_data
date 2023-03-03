@@ -102,7 +102,6 @@ class DashboardView extends StatelessWidget {
                       icon: AppIcons.refreshIcon,
                       onTap: () {
                         controller.getNextQuestions();
-                        //showSnackBar("Under Working...",context);
                        //controller.getNextQuestions(controller.questionList[0]);
                       },
                     ),
