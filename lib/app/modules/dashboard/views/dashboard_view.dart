@@ -100,7 +100,7 @@ class DashboardView extends StatelessWidget {
                       onTap: () {
                         if (controller.userQuestionList.isEmpty) {
                           showSnackBar(
-                              "Your Today's Challenge Completed, Come back Tomorrow.",
+                              "Your Today's Challenges Completed, Come back Tomorrow.",
                               context);
                         } else {
                           controller.addCurrentChallenge(
