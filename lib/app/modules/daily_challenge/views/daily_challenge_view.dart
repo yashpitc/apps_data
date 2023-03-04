@@ -10,6 +10,7 @@ import 'package:intl/intl.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import '../../../components/widgets/challange_card_view.dart';
 import '../../../components/widgets/custom_button.dart';
+import '../../../routes/app_pages.dart';
 import '../../dashboard/controllers/dashboard_controller.dart';
 
 class DailyChallengeView extends StatelessWidget {
@@ -31,7 +32,10 @@ class DailyChallengeView extends StatelessWidget {
           backbutton: false,
           firstTitleColor: AppColors.blackColor,
           secondTitleColor: AppColors.whiteColor,
-          notiButton: false,
+          notiButton: true,
+          notiOnTap: () {
+            Get.toNamed(Routes.NOTIFICATIONVIEW);
+          },
         ),
         body: SingleChildScrollView(
                 padding: const EdgeInsets.only(left: 18.0, right: 18.0),

@@ -36,6 +36,7 @@ class PreviousChallengeView extends StatelessWidget {
                 controller.onInit();
             },
             child: SingleChildScrollView(
+              physics: const AlwaysScrollableScrollPhysics(),
               padding: const EdgeInsets.only(left: 18.0, right: 18.0,bottom: 20.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -46,7 +47,7 @@ class PreviousChallengeView extends StatelessWidget {
                   ),
                   Obx(() =>
                       controller.isLoading.value?
-                      Center(child: CircularProgressIndicator(color: AppColors.cardBorderColor)):
+                      Center(child: CircularProgressIndicator(color: AppColors.whiteColor)):
                           controller.previousChallengeList.isEmpty?
                               Center(
                                 child: Text(

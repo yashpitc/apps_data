@@ -46,33 +46,48 @@ class DashboardView extends StatelessWidget {
                   height: 15,
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text("TOTAL CHALLANAGES", style: CustomTextStyle.ChtitleStyle),
+                    Spacer(),
                     Text(controller.totalChallengeCount.value.toString(), style: CustomTextStyle.ChCountStyle),
+                    SizedBox(width: 5)
                   ],
                 ),
                 SizedBox(height: 22),
-                Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                Row(children: [
                   Text("COMPLETED CHALLENGES", style: CustomTextStyle.ChtitleStyle),
+                  Spacer(),
                   Text(controller.completeChallengeCount.value.toString(), style: CustomTextStyle.ChCountStyle),
+                  SizedBox(width: 5)
                 ]),
                 SizedBox(height: 22),
-                Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                Row( children: [
                   Text("LOST CHALLENGES", style: CustomTextStyle.ChtitleStyle),
-                  Text(controller.lostChallengeCount.value.toString(), style: CustomTextStyle.ChCountStyle)
+                  Spacer(),
+                  Text(controller.lostChallengeCount.value.toString(), style: CustomTextStyle.ChCountStyle),
+                  SizedBox(width: 5)
                 ]),
-                SizedBox(height: 30),
+                SizedBox(height: 25),
                 InkWell(
+                  splashFactory:  NoSplash.splashFactory,
                   onTap: () {
                     Get.toNamed(Routes.PREVIOUSCHALLENGEVIEW);
                   },
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                    Text("CHALLENGE HISTORY", style: CustomTextStyle.ChtitleStyle),
-                    SvgPicture.asset(AppIcons.historyIcon, height: 22, width: 22),
-                  ]),
+                  child: Container(
+                    height: 40,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15.0)
+                    ),
+                    child: Row(
+                        children: [
+                      Text("CHALLENGE HISTORY", style: CustomTextStyle.ChtitleStyle),
+                      Spacer(),
+                      Container(
+                          height:30,
+                          width: 30,
+                          child: SvgPicture.asset(AppIcons.historyIcon)),
+                    ]),
+                  ),
                 ),
                 const SizedBox(height: 40),
                 ChallengeCardView(controller: controller),
@@ -102,7 +117,6 @@ class DashboardView extends StatelessWidget {
                       icon: AppIcons.refreshIcon,
                       onTap: () {
                         controller.getNextQuestions();
-                       //controller.getNextQuestions(controller.questionList[0]);
                       },
                     ),
                   ],
