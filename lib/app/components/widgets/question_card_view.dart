@@ -14,6 +14,7 @@ class QuestionCardView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var dHeight = MediaQuery.of(context).size.height;
+    var question = controller!.questionList2.value.map((element) => element.question);
     return  Obx(() => Container(
         height: dHeight > 800 ? 400 : 328,
         color: Colors.transparent,
@@ -63,10 +64,14 @@ class QuestionCardView extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Question  ${controller!.remainQuestion.value}/3", style: CustomTextStyle.questionStyle),
+                    Text("Question  ${controller!.questionValue.value + 1}/${controller!.totalQuestionCount.value}", style: CustomTextStyle.questionStyle),
                     const SizedBox(height: 15),
                     Flexible(
-                      child: Text(controller!.questionList[0].toString(),
+                      child:
+                      controller!.isLoading.value?
+                      SizedBox():
+                      Text(
+                          controller!.questionList2[controller!.questionValue.value].question.toString(),
                           style: CustomTextStyle.questionTitleStyle),
                     ),
                     const SizedBox(height: 20),
@@ -131,4 +136,6 @@ class QuestionCardView extends StatelessWidget {
       ),
     );
   }
+
+
 }

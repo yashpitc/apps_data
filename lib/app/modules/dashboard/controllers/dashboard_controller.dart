@@ -240,7 +240,7 @@ class DashboardController extends GetxController {
       'question':question,
       'type': 'current'})
         .then((document) {
-      Get.toNamed(Routes.DAILYCHALLENGEVIEW,arguments: DashboardController);
+      // Get.toNamed(Routes.DAILYCHALLENGEVIEW,arguments: DashboardController);
       Fluttertoast.showToast(
         msg: "Challenge Started",
         toastLength: Toast.LENGTH_SHORT,

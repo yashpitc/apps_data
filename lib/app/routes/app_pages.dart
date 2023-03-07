@@ -42,7 +42,7 @@ class AppPages {
     ),
     GetPage(
         name: _Paths.FEEDBACKQUESTIONVIEW,
-        page: () => const FeedbackQuestionView()
+        page: () =>  FeedbackQuestionView()
     ),
 
   ];

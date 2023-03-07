@@ -48,7 +48,7 @@ class DailyChallengeController extends GetxController {
         gravity: ToastGravity.BOTTOM,
         timeInSecForIosWeb: 1,
       );
-      Get.offAndToNamed(Routes.FEEDBACKQUESTIONVIEW);
+      Get.offAndToNamed(Routes.FEEDBACKQUESTIONVIEW,arguments: questionid);
     }).catchError((error) => print('Add failed: $error'));
   }
 

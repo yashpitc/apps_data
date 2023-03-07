@@ -11,10 +11,11 @@ import '../../../routes/app_pages.dart';
 import '../../../utils/validations/form_field_validation.dart';
 
 class FeedbackQuestionView extends StatelessWidget {
-  const FeedbackQuestionView({Key? key}) : super(key: key);
-
+  FeedbackQuestionView({Key? key}) : super(key: key);
+  var questionID = Get.arguments;
   @override
   Widget build(BuildContext context) {
+    print("questionID----"+ questionID.toString());
     return Scaffold(
       backgroundColor: AppColors.dashboardBGColor,
       body: GetBuilder<FeedbackQuestionController>(
@@ -26,21 +27,18 @@ class FeedbackQuestionView extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   NoteView(controller: controller),
-                  SizedBox(height: 50),
+                  const SizedBox(height: 50),
                   QuestionCardView(controller: controller),
-                  SizedBox(height: 50),
+                  const SizedBox(height: 50),
                   CustomButton(
                       buttonText: "NEXT",
                       contentPadding: EdgeInsets.only(left: 45,right: 45,top: 15,bottom: 15),
                       onTap: () {
                         if (controller.formKey.currentState!.validate()){
-                          Get.toNamed(Routes.COMPLETECHALLENGEVIEW);
-                          //controller.changeQuestionCount();
-                          // controller.changeQuestion(0);
+                          controller.changeQuestionCount(questionID);
                         }else{
                           showSnackBar("Answer can't be empty",context);
                         }
-
                       }),
                   SizedBox(height: 20),
                 ],
